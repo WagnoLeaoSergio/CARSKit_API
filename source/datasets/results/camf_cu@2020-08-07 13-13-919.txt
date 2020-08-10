@@ -1,0 +1,31 @@
+WorkingPath: C:\Users\Waguinho\Documents\pesquisa\CARSKit_Interface\source\datasets\results\
+Your original rating data path: C:\Users\Waguinho\Documents\pesquisa\CARSKit_Interface\source\datasets\ratings.txt
+Current working path: C:\Users\Waguinho\Documents\pesquisa\CARSKit_Interface\source\datasets\results\
+User, Item, Rating, time:na, time:weekday, time:weekend, location:na, location:cinema, location:home, companion:na, companion:alone, companion:family, companion:partner
+Data transformaton completed (from Compact to Binary format). See new rating file: C:\Users\Waguinho\Documents\pesquisa\CARSKit_Interface\source\datasets\results\train.csv
+Dataset: ...e\source\datasets\results\train.csv
+DataPath: C:\Users\Waguinho\Documents\pesquisa\CARSKit_Interface\source\datasets\results\train.csv
+Rating data set has been successfully loaded.
+
+/**************************************************************************************************
+ *
+ * Dataset: C:\Users\Waguinho\Documents\pesquisa\CARSKit_Interface\source\datasets\results\train.csv
+ * 
+ * Statistics of U-I-C Matrix:
+ * User amount: 97
+ * Item amount: 79
+ * Rate amount: 5035
+ * Context dimensions: 3 (time, location, companion)
+ * Context conditions: 10 (time: 3, location: 3, companion: 4)
+ * Context situations: 13
+ * Data density: 1,8230%
+ * Scale distribution: [1.0 x 829, 2.0 x 625, 4.0 x 1209, 5.0 x 1367, 3.0 x 1005]
+ * Average value of all ratings: 3,328892
+ * Standard deviation of all ratings: 1,414777
+ * Mode of all rating values: 5,000000
+ * Median of all rating values: 4,000000
+ *
+ **************************************************************************************************/
+With Setup: cv -k 5 -p on --rand-seed 1 --test-view all
+Final Results by CAMF_CU, Pre5: 0,054541,Pre10: 0,060368, Rec5: 0,094465, Rec10: 0,212867, AUC5: 0,593502, AUC10: 0,666049, MAP5: 0,042571, MAP10: 0,063394,NDCG5: 0,071102, NDCG10: 0,121583,MRR5: 0,100703, MRR10: 0,126481, numFactors: 10, numIter: 100, lrate: 0.02, maxlrate: -1.0, regB: 1.0E-4, regU: 1.0E-4, regI: 1.0E-4, regC: 0.001, isBoldDriver: true, Time: '00:05','00:00'
+
