@@ -5,7 +5,7 @@ class Database(object):
         self.database_path = db_path
         self.database_obj = None
     
-    # Futuramente pode ser trocado por self.connect_database()
+    # Futuramente pode ser trocada por self.connect_database()
     def load_database(self) -> bool:
         self.database_obj = pickledb.load(self.database_path, True)
         if self.database_obj:
@@ -30,5 +30,6 @@ class Database(object):
     def exists(self, query: str) -> bool:
         return self.database_obj.exists(query)
 
-    # def disconnect(self)
+    # def disconnect_database(self):
+    #    pass
 
