@@ -151,7 +151,6 @@ class Settings_Editor(object):
             for i in range(len(settings_str)):
                 settings_file.write(settings_str[i])
 
-
             settings_file.close()
             return True
         return False
