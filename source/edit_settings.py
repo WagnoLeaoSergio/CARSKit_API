@@ -5,80 +5,121 @@ import pickledb
 # CRIAR TESTES PARA OS METODOS PELO AMOR DE DEUS
 
 class Settings_Editor(object):
-    def __init__(self, file_path="\\CARSKit\\setting.conf"):
-        #current_path = os.path.abspath(os.getcwd())
-        #self.file_path =  current_path + file_path
-        self.file_path = "./test.conf"
+    def __init__(self, file_path="./source/test.conf"):
+        self.file_path = os.path.abspath(file_path)
         self.__dataset_path = ""
-        self.__result_path = ""
+
+        # Talvez isso deixe de ser um path e vire só o nome da pasta
+        self.__results_path = os.path.abspath("./source/datasets/results/")
         self.__algorithm = "camf_cu"
-        self.__parameters = []
-        self.db = pickledb.load("./settings_data.db", True)
-        # parametros ...
+
+        #Criar um dicionario de parametros
+        self.__parameters = {}
+        self.__available_algorithms = [
+            "itemknn",
+            "userknn",
+            "slopeone",
+            "pmf",
+            "bpmf",
+            "biasedmf",
+            "nmf",
+            "svd++",
+            "usersplitting",
+            "itemsplitting",
+            "uisplitting",
+            "spf",
+            "dcr",
+            "dcw",
+            "cptf",
+            "camf_ci",
+            "camf_cu",
+            "camf_cuci",
+            "cslim_ci",
+            "cslim_cu",
+            "cslim_cuci",
+            "gcslim_cc",
+            "cslim_ics",
+            "cslim_lcs",
+            "cslim_mcs",
+            "gcslim_ics",
+            "gcslim_lcs",
+            "gcslim_mcs"
+        ]
+        self.db = pickledb.load("./source/settings_data.db", True)
 
     # getters e setters para os parametos...
 
     def set_dataset_path(self, path: str) -> bool:
-        # FACIL: Checar se o caminho existe
-        if not os.path.exists(path):
-            return False
-        self.__dataset_path = path
-        return True
+        if isinstance(path, str) and os.path.exists(path):
+            self.__dataset_path = os.path.abspath(path)
+            return True
+        return False
 
     def get_dataset_path(self) -> str:
         return self.__dataset_path
 
     def set_results_path(self, path: str) -> bool:
-        # FACIL: Checar se o caminho existe
-        if not os.path.exists(path):
-            return False
-        self.__results_path = path
-        return True
+        if isinstance(path, str) and os.path.exists(path):
+            self.__results_path = os.path.abspath(path)
+            return True
+        return False
 
     def get_results_path(self) -> str:
         return self.__results_path
 
     def set_algorithm(self, algo: str) -> bool:
-        # MEDIO: Checar se o algoritmo recebido existe
-        self.__algorithm = algo
-        return True
+        if isinstance(algo, str) and algo != "":
+            if algo.lower() in self.__available_algorithms:
+                self.__algorithm = algo
+                return True
+        return False
+
     def get_algorithm(self) -> str:
         return  self.__algorithm
     
-    def set_parameters(self, params: list) -> bool:
+    def set_parameters(self, params: dict) -> bool:
         # DIFICIL: validar os parametros
         self.__parameters = params
         return True
-    def get_parameters(self) -> list:
+    def get_parameters(self) -> dict:
         return self.__parameters
 
     def load_settings(self) -> bool:
-        # 1 - Carregar os parametros de algum BD
+        if not self.db:
+            return "ERROR! No Database connected!"
+
         if not self.db.get("initialized"):
             self.db.set("dataset_path", self.__dataset_path)
-            self.db.set("result_path", self.__result_path)
+            self.db.set("result_path", self.__results_path)
             self.db.set("algorithm", self.__algorithm)
             self.db.set("parameters", self.__parameters)
-            self.db.set("initialized", True)
-            return False
+            self.db.set("initialized", 1)
+            return "no previous settings, DB initialized"
         
         self.__dataset_path = self.db.get("dataset_path")
         self.__result_path = self.db.get("result_path")
         self.__algorithm = self.db.get("algorithm")
         self.__parameters = self.db.get("parameters")
-        return True
+        return "settings loaded"
 
     def save_settings(self) -> bool:
         status = True
         status = status and self.db.set("dataset_path", self.__dataset_path)
-        status = status and self.db.set("result_path", self.__result_path)
+        status = status and self.db.set("result_path", self.__results_path)
         status = status and self.db.set("algorithm", self.__algorithm)
         status = status and self.db.set("parameters", self.__parameters)
         status = status and self.db.dump()
         return status
         
 
-    def generate_file(self) -> bool:
+    def generate_file(self) -> bool:       
+        if not os.path.exists(self.file_path):
+            return "ERROR! File of settings file do not exist!"
+        if self.__dataset_path == "":
+            return "ERROR! No dataset selected!"
+
+        # Checar parametros...
+
         settings_file = open(self.file_path, "w")
         if settings_file:
             settings_str = [
@@ -147,19 +188,14 @@ class Settings_Editor(object):
                 "GCSLIM_MCS=-lw1 1 -lw2 5 -k -1 -als 0\n",
                 "FM=-lw 0.01 -lf 0.02\n"
             ]
-
             for i in range(len(settings_str)):
                 settings_file.write(settings_str[i])
 
             settings_file.close()
-            return True
-        return False
-        #1 - abrir um novo arquivo de configurações
-
-        #2 - Criar uma cópia do arquivo setting.conf  e substituir os espaços onde ficam os parametros
-
-        #3 - Escrever a cópia alterada no arquivo e salva-lo no caminho especificado
-
-        #4 - fechar o arquivo
-
+            print("#########")
+            print(f"File name: { os.path.basename(self.file_path) }")
+            print("#########")
+            return "The file was generated!"
+        else:
+            return "ERROR! The file do not opened!"   
     # SALVAR OS PARAMETROS NO BD QUANDO A CLASSE FOR DESTRUÍDA!

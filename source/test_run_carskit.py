@@ -1,4 +1,4 @@
-from ..run_carskit import Runner
+from  run_carskit import Runner
 
 def test_run_engine():
     runner = Runner('C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\source\\CARSKit')

@@ -3,3 +3,4 @@
 **/__pycache__/
 .pytest_cache/
 source/test.conf
+**settings_data.db
