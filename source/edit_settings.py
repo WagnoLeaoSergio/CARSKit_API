@@ -14,7 +14,20 @@ class Settings_Editor(object):
         self.__algorithm = "camf_cu"
 
         #Criar um dicionario de parametros
-        self.__parameters = {}
+        """
+        Para as configurações de algoritmos específicos talvez seja necessário o uso de expressões regulares
+        """
+        self.__parameters = {
+            "topN": 10,
+            "k_folds": 5,
+            "random_seed": 1,
+            "num_factors": 10,
+            "num_max_iterations": 100,
+            "learning_rate": 2e-2,
+            "reg_lambda": 0.0001,
+            "num_neighboors": 10,
+            "similarity": "pcc", # availables: pcc, cos, cos-binary, msd, cpc
+        }
         self.__available_algorithms = [
             "itemknn",
             "userknn",
@@ -77,12 +90,19 @@ class Settings_Editor(object):
     def get_algorithm(self) -> str:
         return  self.__algorithm
     
-    def set_parameters(self, params: dict) -> bool:
-        # DIFICIL: validar os parametros
-        self.__parameters = params
-        return True
-    def get_parameters(self) -> dict:
-        return self.__parameters
+    def set_parameter(self, key: str, value: str) -> bool:
+        if isinstance(key, str) and key in self.__parameters:
+            self.__parameters[key] = value
+            return True
+        else:
+            return False
+
+    def get_parameter(self, key: str) -> dict:
+        if isinstance(key, str) and key in self.__parameters:
+            return self.__parameters[key]
+        else:
+            return {}
+
 
     def load_settings(self) -> bool:
         if not self.db:
@@ -139,26 +159,26 @@ class Settings_Editor(object):
                 "# evaluation.setup=given-ratio -r 0.8 -target r --test-view all --rand-seed 1\n",
                 "# main option: is ranking prediction\n",
                 "# other options: -ignore NumOfPopularItems\n",
-                "evaluation.setup=cv -k 5 -p on --rand-seed 1 --test-view all\n",
-                "item.ranking=on -topN 10\n",
+                f"evaluation.setup=cv -k {self.__parameters['k_folds']} -p on --rand-seed {self.__parameters['random_seed']} --test-view all\n",
+                f"item.ranking=on -topN {self.__parameters['topN']}\n",
                 "output.setup=-folder results -verbose on, off --to-file results_all.txt\n",
                 "# Guava cache configuration\n",
                 "guava.cache.spec=maximumSize=200,expireAfterAccess=2m\n",
                 "########################### Model-based Methods ############################\n#"
-                "num.factors=10\n",
-                "num.max.iter=100\n",
+                f"num.factors={self.__parameters['num_factors']}\n",
+                f"num.max.iter={self.__parameters['num_max_iterations']}\n",
                 "# options: -bold-driver, -decay ratio, -moment value\n",
-                "learn.rate=2e-2 -max -1 -bold-driver\n",
-                "reg.lambda=0.0001 -c 0.001\n",
+                f"learn.rate={self.__parameters['learning_rate']} -max -1 -bold-driver\n",
+                f"reg.lambda={self.__parameters['reg_lambda']} -c 0.001\n",
                 "#reg.lambda=10 -u 0.001 -i 0.001 -b 0.001 -s 0.001 -c 0.001\n",
                 "# probabilistic graphic models\n",
                 "pgm.setup=-alpha 2 -beta 0.5 -burn-in 300 -sample-lag 10 -interval 100\n",
                 "########################### Memory-based Methods ##########################\n#"
                 "# similarity method: PCC, COS, COS-Binary, MSD, CPC, exJaccard; -1 to disable shrinking;\n",
-                "similarity=pcc\n",
+                f"similarity={self.__parameters['similarity']}\n",
                 "num.shrinkage=-1\n",
                 "# neighborhood size; -1 to use as many as possible.\n",
-                "num.neighbors=10\n",
+                f"num.neighbors={self.__parameters['num_neighboors']}\n",
                 "########################## Method-specific Settings ########################\n#"
                 "AoBPR=-lambda 0.3\n",
                 "BUCM=-gamma 0.5\n",
