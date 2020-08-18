@@ -219,3 +219,6 @@ class Settings_Editor(object):
         else:
             return "ERROR! The file do not opened!"   
     # SALVAR OS PARAMETROS NO BD QUANDO A CLASSE FOR DESTRUÍDA!
+
+    def __del__(self):
+        self.save_settings()
