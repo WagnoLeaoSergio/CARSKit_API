@@ -1,6 +1,7 @@
 import re
 import json
 import os
+import datetime
 
 """
     Dependendo do quão parecido essas classes ficarem
@@ -11,9 +12,116 @@ import os
             coisas....
 """
 
+class Model_Status_Manager(object):
+    def __init__(self, statistics_filename="camf_cu@2020-08-18 16-27-819"):
+        self.statistics_filename = statistics_filename
+
+    def generate_statistic_data(self, statistic_file):
+        stats_data = {
+            " * User amount": {
+            "field_name": "user_amount",
+                "value": 0
+                },
+            " * Item amount": {
+            "field_name": "item_mount",
+                "value": 0
+                },
+            " * Rate amount": {
+            "field_name": "rate_amount",
+                "value": 0
+                },
+            " * Context dimensions": {
+            "field_name": "context_dimensions",
+                "value": 0
+                },
+            " * Context conditions": {
+            "field_name": "context_conditions",
+                "value": 0
+                },
+            " * Context situations": {
+            "field_name": "context_situations",
+                "value": 0
+                },
+            " * Data density": {
+            "field_name": "data_density",
+                "value": 0
+                },
+            " * Scale distribution": {
+                "field_name": "scale_distributions",
+                "value": ""
+            },
+            " * Average value of all ratings": {
+            "field_name": "average_ratings",
+                "value": 0
+                },
+            " * Standard deviation of all ratings": {
+            "field_name": "standard_deviation_ratings",
+                "value": 0
+                },
+            " * Mode of all rating values": {
+            "field_name": "mode_ratings",
+                "value": 0
+                },
+            " * Median of all rating values": {
+            "field_name": "median_ratings",
+                "value": 0
+                }
+        }  
+        for line in statistic_file:
+            field = re.findall(" [*]? .*", line)
+            if field != []:
+                field = field[0]
+                field = re.split(":", field, 1)
+
+                if field[0] in stats_data:
+                    stats_data[field[0]]["value"] = re.sub(" ", "", field[1])
+
+        formatted_data = {}
+        for field in stats_data.items():
+            formatted_data[field[1]['field_name']] = field[1]['value']
+
+        return formatted_data
+
+    def format_stats(self, stats_data):
+        stats_data["average_ratings"] = re.sub(",", ".", stats_data["average_ratings"])
+        stats_data["median_ratings"] = re.sub(",", ".", stats_data["median_ratings"])
+        stats_data["mode_ratings"] = re.sub(",", ".", stats_data["mode_ratings"])
+        stats_data["standard_deviation_ratings"] = re.sub(",", ".", stats_data["standard_deviation_ratings"])
+
+        stats_data["scale_distributions"] = re.split(",",  stats_data["scale_distributions"])
+
+        stats_data["scale_distributions"][0] = re.sub("\[|\]", "", stats_data["scale_distributions"][0])
+        stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1] = re.sub(
+            "\[|\]", "", stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1]
+        )
+
+    def save_statistics(self):
+        current_path = os.path.abspath(os.getcwd())
+        results_folder = os.path.join(current_path, "source/datasets/results/")
+        stats_file_path = os.path.join(results_folder, self.statistics_filename + ".txt")
+
+        file_name = re.split("@|.txt", self.statistics_filename)[1]
+        file_name = re.sub(" ", "_", file_name)
+        file_name = "execution_" + file_name
+
+        statistics_file = open(stats_file_path, "r")
+        if statistics_file:
+            
+            stats_data = self.generate_statistic_data(statistics_file)
+            self.format_stats(stats_data)
+            statistics_file.close()
+
+            with open(os.path.join(results_folder, file_name + ".json"), 'w') as outfile:
+                json.dump(stats_data, outfile)
+
+            return f"The file {file_name + '.json'} was successfully created!"
+
+        return f"ERROR! The file {self.statistics_filename + '.txt'} could not be opened."
+
+
 class Recommendations_Manager(object):
-    def __init__(self):
-        self.result_filename = "CAMF_CU-top-10-items fold [1]"
+    def __init__(self, result_filename="CAMF_CU-top-10-items fold [1]"):
+        self.result_filename = result_filename
 
     def get_line_header(self, line):
         contexts = []
