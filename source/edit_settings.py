@@ -59,6 +59,7 @@ class Settings_Editor(object):
             "gcslim_mcs"
         ]
         self.db = pickledb.load("./source/settings_data.db", True)
+        self.save_settings()
 
     # getters e setters para os parametos...
 

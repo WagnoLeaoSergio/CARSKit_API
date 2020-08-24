@@ -27,5 +27,5 @@ Rating data set has been successfully loaded.
  *
  **************************************************************************************************/
 With Setup: cv -k 5 -p on --rand-seed 1 --test-view all
-Final Results by CAMF_CU, Pre5: 0,052150,Pre10: 0,057788, Rec5: 0,090947, Rec10: 0,202254, AUC5: 0,592394, AUC10: 0,658919, MAP5: 0,036970, MAP10: 0,056587,NDCG5: 0,065275, NDCG10: 0,112962,MRR5: 0,090736, MRR10: 0,114874, numFactors: 10, numIter: 100, lrate: 0.02, maxlrate: -1.0, regB: 1.0E-4, regU: 1.0E-4, regI: 1.0E-4, regC: 0.001, isBoldDriver: true, Time: '00:01','00:00'
+Final Results by CAMF_CU, Pre5: 0,055137,Pre10: 0,057344, Rec5: 0,101925, Rec10: 0,200088, AUC5: 0,599217, AUC10: 0,659998, MAP5: 0,043611, MAP10: 0,060699,NDCG5: 0,074074, NDCG10: 0,116612,MRR5: 0,104669, MRR10: 0,126544, numFactors: 10, numIter: 100, lrate: 0.02, maxlrate: -1.0, regB: 1.0E-4, regU: 1.0E-4, regI: 1.0E-4, regC: 0.001, isBoldDriver: true, Time: '00:01','00:00'
 

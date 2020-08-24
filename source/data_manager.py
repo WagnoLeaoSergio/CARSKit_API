@@ -12,11 +12,13 @@ import datetime
             coisas....
 """
 
-class Model_Status_Manager(object):
-    def __init__(self, statistics_filename="camf_cu@2020-08-18 16-27-819"):
+class Model_Statistics_Manager(object):
+    def __init__(self, statistics_filename="sample@statistics"):
         self.statistics_filename = statistics_filename
 
     def generate_statistic_data(self, statistic_file):
+
+        fields_founded = False
         stats_data = {
             " * User amount": {
             "field_name": "user_amount",
@@ -67,45 +69,73 @@ class Model_Status_Manager(object):
                 "value": 0
                 }
         }  
-        for line in statistic_file:
-            field = re.findall(" [*]? .*", line)
-            if field != []:
-                field = field[0]
-                field = re.split(":", field, 1)
 
-                if field[0] in stats_data:
-                    stats_data[field[0]]["value"] = re.sub(" ", "", field[1])
+        try:
+            for line in statistic_file:
+                field = re.findall(" [*]? .*", line)
+                if field != []:
+                    field = field[0]
+                    field = re.split(":", field, 1)
 
-        formatted_data = {}
+                    if field[0] in stats_data:
+                        stats_data[field[0]]["value"] = re.sub(" ", "", field[1])
+                        fields_founded = True
+        except KeyError as e:
+            return e.data
+
+        if not fields_founded:
+            return "ERROR! stats file not suporrted"
+
+        labeled_data = {}
         for field in stats_data.items():
-            formatted_data[field[1]['field_name']] = field[1]['value']
+            labeled_data[field[1]['field_name']] = field[1]['value']
 
-        return formatted_data
+        return labeled_data
 
     def format_stats(self, stats_data):
-        stats_data["average_ratings"] = re.sub(",", ".", stats_data["average_ratings"])
-        stats_data["median_ratings"] = re.sub(",", ".", stats_data["median_ratings"])
-        stats_data["mode_ratings"] = re.sub(",", ".", stats_data["mode_ratings"])
-        stats_data["standard_deviation_ratings"] = re.sub(",", ".", stats_data["standard_deviation_ratings"])
 
-        stats_data["scale_distributions"] = re.split(",",  stats_data["scale_distributions"])
+        if "average_ratings" in stats_data and "median_ratings" in stats_data \
+            and "mode_ratings" in stats_data and "standard_deviation_ratings" in stats_data \
+            and "scale_distributions" in stats_data:
 
-        stats_data["scale_distributions"][0] = re.sub("\[|\]", "", stats_data["scale_distributions"][0])
-        stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1] = re.sub(
-            "\[|\]", "", stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1]
-        )
+            stats_data["average_ratings"] = re.sub(",", ".", stats_data["average_ratings"])
+            stats_data["median_ratings"] = re.sub(",", ".", stats_data["median_ratings"])
+            stats_data["mode_ratings"] = re.sub(",", ".", stats_data["mode_ratings"])
+            stats_data["standard_deviation_ratings"] = re.sub(",", ".", stats_data["standard_deviation_ratings"])
 
-    def save_statistics(self):
+            stats_data["scale_distributions"] = re.split(",",  stats_data["scale_distributions"])
+
+            stats_data["scale_distributions"][0] = re.sub(r"\[|\]", "", stats_data["scale_distributions"][0])
+            stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1] = re.sub(
+                r"\[|\]", "", stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1]
+            )
+
+            return "statistics data successfully formatted!"
+        
+        return "ERROR! statistics data dict not supported"
+
+    def save_statistics(self, stats_file_path_=None):
+
         current_path = os.path.abspath(os.getcwd())
         results_folder = os.path.join(current_path, "source/datasets/results/")
-        stats_file_path = os.path.join(results_folder, self.statistics_filename + ".txt")
 
-        file_name = re.split("@|.txt", self.statistics_filename)[1]
+        if stats_file_path_ is None:
+            stats_file_path = os.path.join(results_folder, self.statistics_filename + ".txt")
+        else:
+            stats_file_path = stats_file_path_
+
+        
+        file_name = os.path.basename(stats_file_path)
+        file_name = re.split("@|.txt", file_name)[1]
         file_name = re.sub(" ", "_", file_name)
         file_name = "execution_" + file_name
 
-        statistics_file = open(stats_file_path, "r")
-        if statistics_file:
+        try:
+            statistics_file = open(stats_file_path, "r")
+        except FileNotFoundError:
+            return f"ERROR! The file {stats_file_path} could not be opened."
+
+        if statistics_file.readable():
             
             stats_data = self.generate_statistic_data(statistics_file)
             self.format_stats(stats_data)
@@ -116,11 +146,11 @@ class Model_Status_Manager(object):
 
             return f"The file {file_name + '.json'} was successfully created!"
 
-        return f"ERROR! The file {self.statistics_filename + '.txt'} could not be opened."
+        return f"ERROR! The file {stats_file_path} is not readable."
 
 
 class Recommendations_Manager(object):
-    def __init__(self, result_filename="CAMF_CU-top-10-items fold [1]"):
+    def __init__(self, result_filename="sample_recommendations"):
         self.result_filename = result_filename
 
     def get_line_header(self, line):
@@ -146,7 +176,7 @@ class Recommendations_Manager(object):
 
 
     def get_line_recommendations(self, line) -> list:
-        rec_strings = re.findall("\(.*?\)", line)
+        rec_strings = re.findall(r"\(.*?\)", line)
         rec_data = []
         for rec in rec_strings:
 
@@ -189,23 +219,32 @@ class Recommendations_Manager(object):
 
         return results_data
 
-    def save_recommendations(self):
+    def save_recommendations(self, results_file_path_=None):
 
         current_path = os.path.abspath(os.getcwd())
         results_folder = os.path.join(current_path, "source/datasets/results/")
-        results_file_path = os.path.join(results_folder, self.result_filename + ".txt")
 
-        recommendations_file = open(results_file_path, "r")
-        if recommendations_file:
+        if results_file_path_ is None:
+            results_file_path = os.path.join(results_folder, self.result_filename + ".txt")
+        else:
+            results_file_path = results_file_path_
 
+        results_filename = os.path.basename(results_file_path)
+        results_filename = re.split(".txt", results_filename)[0]
+
+        try:
+            recommendations_file = open(results_file_path, "r")
+        except FileNotFoundError:
+            return f"ERROR! The file {results_file_path} could not be opened."
+
+        if recommendations_file.readable():
             header = recommendations_file.readline()
             results_data = self.generate_recommendations_data(recommendations_file)
-            # json_results = json.dump(results_data)
             recommendations_file.close()
 
             with open(os.path.join(results_folder, self.result_filename + ".json"), 'w') as outfile:
                 json.dump(results_data, outfile)
 
-            return f"The file {self.result_filename + '.json'} was successfully created!"
+            return f"The file {results_filename + '.json'} was successfully created!"
 
-        return f"ERROR! The file {self.result_filename + '.txt'} could not be opened."
+        return f"ERROR! The file {results_file_path} is not readable."
