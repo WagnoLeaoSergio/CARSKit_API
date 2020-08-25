@@ -127,7 +127,10 @@ def test_load_settings(sample_settings_editor):
 def test_save_settings(sample_settings_editor):
     assert sample_settings_editor.save_settings() == True
 
-def test_generate_file(sample_settings_editor):
-    sample_settings_editor.set_dataset_path(os.path.abspath("./source/datasets/ratings.txt"))
-    ok_message = "The file was generated!"
-    assert sample_settings_editor.generate_file() == ok_message
+@pytest.mark.parametrize("file_path, expected_result", [
+    ("./source/datasets/ratings.txt", "The settings file was generated!"),
+    ("./source/datasets/avnoaf.txt", "ERROR! The settings file path was not founded!")
+])
+def test_generate_file(sample_settings_editor, file_path, expected_result):
+    sample_settings_editor.set_dataset_path(os.path.abspath(file_path))
+    assert sample_settings_editor.generate_file() == expected_result

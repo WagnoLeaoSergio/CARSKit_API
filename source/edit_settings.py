@@ -141,8 +141,12 @@ class Settings_Editor(object):
 
         # Checar parametros...
 
-        settings_file = open(self.file_path, "w")
-        if settings_file:
+        try:
+            settings_file = open(self.file_path, "w")
+        except FileNotFoundError:
+            return "ERROR! The settings file path was not founded!"
+
+        if settings_file.readable():
             settings_str = [
                 "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\source\\datasets\\ratings.txt\n",
                 "# dataset.ratings.lins=/users/yzheng/desktop/data/restaurant/ratings.txt\n",
@@ -216,9 +220,9 @@ class Settings_Editor(object):
             print("#########")
             print(f"File name: { os.path.basename(self.file_path) }")
             print("#########")
-            return "The file was generated!"
+            return "The settings file was generated!"
         else:
-            return "ERROR! The file do not opened!"   
+            return "ERROR! The file is not readable!"   
     # SALVAR OS PARAMETROS NO BD QUANDO A CLASSE FOR DESTRUÍDA!
 
     def __del__(self):
