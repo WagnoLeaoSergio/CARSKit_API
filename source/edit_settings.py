@@ -2,8 +2,6 @@ import os
 import subprocess
 import pickledb
 
-#### CRIAR TRY : EXCEPT PARA AS LEITURAS E ESCRITAS DE ARQUIVOS PELO AMOR DE DEUS
-
 class Settings_Editor(object):
     def __init__(self, file_path="./source/test.conf"):
         self.file_path = os.path.abspath(file_path)

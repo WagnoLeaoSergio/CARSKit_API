@@ -27,7 +27,7 @@ class Database(object):
     def save(self) -> bool:
         return self.database_obj.dump()
 
-    def exists(self, query: str) -> bool:
+    def exist(self, query: str) -> bool:
         return self.database_obj.exists(query)
 
     # def disconnect_database(self):

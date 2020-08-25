@@ -16,7 +16,7 @@ class Model_Statistics_Manager(object):
     def __init__(self, statistics_filename="sample@statistics"):
         self.statistics_filename = statistics_filename
 
-    def generate_statistic_data(self, statistic_file):
+    def generate_statistic_data(self, statistic_file: str) -> dict:
 
         fields_founded = False
         stats_data = {
