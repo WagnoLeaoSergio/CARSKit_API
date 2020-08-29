@@ -13,10 +13,19 @@ import datetime
 """
 
 class Model_Statistics_Manager(object):
+    """
+    Class responsible for managing the statistics created after
+    an execution of the engine. Requires the name of the statistics file.
+    """
+
     def __init__(self, statistics_filename="sample@statistics"):
         self.statistics_filename = statistics_filename
 
     def generate_statistic_data(self, statistic_file: str) -> dict:
+        """
+        Extracts the essencial data from the statistics file specified and
+        returns it as an dictionary.
+        """
 
         fields_founded = False
         stats_data = {
@@ -92,7 +101,12 @@ class Model_Statistics_Manager(object):
 
         return labeled_data
 
-    def format_stats(self, stats_data):
+    def format_stats(self, stats_data: dict) -> str:
+        """
+        Format the dictionary of statistical data specified
+        and returns a message about the operation's success.
+        """
+
 
         if "average_ratings" in stats_data and "median_ratings" in stats_data \
             and "mode_ratings" in stats_data and "standard_deviation_ratings" in stats_data \
@@ -114,7 +128,11 @@ class Model_Statistics_Manager(object):
         
         return "ERROR! statistics data dict not supported"
 
-    def save_statistics(self, stats_file_path_=None):
+    def save_statistics(self, stats_file_path_:str=None) -> str: 
+        """
+        Generate and save the data extracted from the statistic file specified
+        and returns a message about the operation's success.
+        """
 
         current_path = os.path.abspath(os.getcwd())
         results_folder = os.path.join(current_path, "source/datasets/results/")
@@ -150,10 +168,20 @@ class Model_Statistics_Manager(object):
 
 
 class Recommendations_Manager(object):
+    """
+    Class responsible for managing the recommendations generated after
+    an execution of the engine. Requires the name of the recommendation file.
+    """
+
     def __init__(self, result_filename="sample_recommendations"):
         self.result_filename = result_filename
 
-    def get_line_header(self, line):
+    def get_line_header(self, line:str ) -> str, list:
+        """
+        Returns the user's id and 
+        a list of his contexts from the specified line.
+        """
+
         contexts = []
 
         s_line = line.split(sep=',')
@@ -175,7 +203,12 @@ class Recommendations_Manager(object):
         return user, contexts
 
 
-    def get_line_recommendations(self, line) -> list:
+    def get_line_recommendations(self, line:str) -> list:
+        """
+        Returns a list of items and ratings from the
+        specified line.
+        """
+
         rec_strings = re.findall(r"\(.*?\)", line)
         rec_data = []
         for rec in rec_strings:
@@ -190,7 +223,12 @@ class Recommendations_Manager(object):
 
         return rec_data
 
-    def create_context_combinations(self, contexts:list):
+    def create_context_combinations(self, contexts:list) -> str:
+        """
+        Returns the context combination string from a 
+        specified list of contexts.
+        """
+
         ctx = ""
         for i in range(len(contexts) - 1):
             ctx = ctx + contexts[i][1] + ", "
@@ -199,7 +237,13 @@ class Recommendations_Manager(object):
         return ctx
 
 
-    def generate_recommendations_data(self, results_file):
+    def generate_recommendations_data(self, results_file) -> dict:
+        """
+        Returns a dictionary of items recommendations for each user
+        for each combination  for context(s) from a specified file.
+        """
+
+
         results_data = {
             "users": {}
         }
@@ -219,7 +263,11 @@ class Recommendations_Manager(object):
 
         return results_data
 
-    def save_recommendations(self, results_file_path_=None):
+    def save_recommendations(self, results_file_path_:str=None) -> str:
+        """
+        Extract the recommendations from a file which his path need to be specified,
+        saves them as a JSON file and returns a message about the operations success.
+        """
 
         current_path = os.path.abspath(os.getcwd())
         results_folder = os.path.join(current_path, "source/datasets/results/")

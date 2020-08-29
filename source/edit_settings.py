@@ -3,7 +3,13 @@ import subprocess
 import pickledb
 
 class Settings_Editor(object):
-    def __init__(self, file_path="./source/test.conf"):
+    """
+    Class that manage all the parameters needed to
+    generate the setting.conf file necessary of the engine.
+    The settings file path need to be passed.
+    """
+
+    def __init__(self, file_path : str ="./source/test.conf"):
         self.file_path = os.path.abspath(file_path)
         self.__dataset_path = ""
 
@@ -62,6 +68,11 @@ class Settings_Editor(object):
     # getters e setters para os parametos...
 
     def set_dataset_path(self, path: str) -> bool:
+        """
+        Define and validate the path to the dataset that is going
+        to be used and returns a bool for True if the operation is valid.
+        """
+
         if isinstance(path, str) and os.path.exists(path):
             self.__dataset_path = os.path.abspath(path)
             return True
@@ -71,6 +82,11 @@ class Settings_Editor(object):
         return self.__dataset_path
 
     def set_results_path(self, path: str) -> bool:
+        """
+        Define and validate the path for the result that the engine will generate
+        and returns a bool for True if the operation is valid.
+        """
+
         if isinstance(path, str) and os.path.exists(path):
             self.__results_path = os.path.abspath(path)
             return True
@@ -80,6 +96,11 @@ class Settings_Editor(object):
         return self.__results_path
 
     def set_algorithm(self, algo: str) -> bool:
+        """
+        Define and validate the algorithm that is going
+        to be used and returns a bool for True if the operation is valid.
+        """
+
         if isinstance(algo, str) and algo != "":
             if algo.lower() in self.__available_algorithms:
                 self.__algorithm = algo
@@ -90,6 +111,11 @@ class Settings_Editor(object):
         return  self.__algorithm
     
     def set_parameter(self, key: str, value: str) -> bool:
+        """
+        Define and validate a parameter for the next engine's execution
+        and returns a bool for True if the operation is valid.
+        """
+
         if isinstance(key, str) and key in self.__parameters:
             self.__parameters[key] = value
             return True
@@ -103,7 +129,12 @@ class Settings_Editor(object):
             return {}
 
 
-    def load_settings(self) -> bool:
+    def load_settings(self) -> str:
+        """
+        Try to load the settings configuration from the file 'settings_data.db'
+        and return an operation message.
+        """
+
         if not self.db:
             return "ERROR! No Database connected!"
 
@@ -122,6 +153,11 @@ class Settings_Editor(object):
         return "settings loaded"
 
     def save_settings(self) -> bool:
+        """
+        Saves the current settings to the file 'settings_data.db'
+        and returns a bool for the success of the operation.
+        """
+
         status = True
         status = status and self.db.set("dataset_path", self.__dataset_path)
         status = status and self.db.set("result_path", self.__results_path)
@@ -131,13 +167,16 @@ class Settings_Editor(object):
         return status
         
 
-    def generate_file(self) -> bool:       
+    def generate_file(self) -> str:
+        """
+        Generates the file 'settings.conf' with the current configuration
+        and saves in the specified path.
+        """
+
         if not os.path.exists(self.file_path):
             return "ERROR! File of settings file do not exist!"
         if self.__dataset_path == "":
             return "ERROR! No dataset selected!"
-
-        # Checar parametros...
 
         try:
             settings_file = open(self.file_path, "w")
@@ -221,7 +260,9 @@ class Settings_Editor(object):
             return "The settings file was generated!"
         else:
             return "ERROR! The file is not readable!"   
-    # SALVAR OS PARAMETROS NO BD QUANDO A CLASSE FOR DESTRUÍDA!
 
     def __del__(self):
+        """
+        Saves the settings when the class is dealocated.
+        """
         self.save_settings()
