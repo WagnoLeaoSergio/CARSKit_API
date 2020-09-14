@@ -25,7 +25,7 @@ class RunEngine(Command):
         output = "Is Running!"
 
         runner = Runner(
-            "/home/wagno/Documents/projects/Python/Cliff/CAPI_proto/capi_proto/CARSKit/"
+            "/home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_Interface/carskit_api/CARSKit"
         )
 
         output = runner.run_engine()

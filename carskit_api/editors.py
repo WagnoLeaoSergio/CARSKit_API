@@ -72,6 +72,8 @@ class Settings_Editor(object):
             "gcslim_mcs"
         ]
 
+        if not self.db.get("parameters"):
+            self.save_settings()
         self.load_settings()
 
     # getters e setters para os parametos...

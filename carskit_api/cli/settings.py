@@ -34,7 +34,7 @@ class Settings(Command):
         output = "test"
 
         settings_editor = Settings_Editor(
-            "/home/wagno/Documents/projects/Python/Cliff/CAPI_proto/capi_proto/test.conf"
+            "/home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_Interface/carskit_api/test.conf"
         )
 
         if parsed_args.get:

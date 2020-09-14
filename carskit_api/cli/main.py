@@ -7,7 +7,7 @@ from cliff.commandmanager import CommandManager
 class CAPI_App(App):
     def __init__(self):
         super(CAPI_App, self).__init__(
-            description="A CLI prototype for CARSKit",
+            description="An API for the CARSKit engine",
             version="0.0.1",
             command_manager=CommandManager("capi"),
             deferred_help=True,

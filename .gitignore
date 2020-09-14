@@ -4,3 +4,4 @@
 .pytest_cache/
 source/test.conf
 **settings_data.db
+CARSKit_API.egg-info
