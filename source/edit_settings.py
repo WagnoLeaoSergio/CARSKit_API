@@ -2,26 +2,33 @@ import os
 import subprocess
 import pickledb
 
+
 class Settings_Editor(object):
     """
     Class that manage all the parameters needed to
-    generate the setting.conf file necessary of the engine.
-    The settings file path need to be passed.
+    generate the configuration file (setting.conf) for the engine.
+    The configuration file path need to be specified.
     """
 
-    def __init__(self, file_path : str ="./source/test.conf"):
+    def __init__(self, file_path: str = "./source/test.conf"):
+
+        self.db = pickledb.load("./source/settings_data.json", False)
+
         self.file_path = os.path.abspath(file_path)
-        self.__dataset_path = ""
+        self.__dataset_path = "None"
 
         # Talvez isso deixe de ser um path e vire só o nome da pasta
         self.__results_path = os.path.abspath("./source/datasets/results/")
         self.__algorithm = "camf_cu"
 
-        #Criar um dicionario de parametros
         """
         Para as configurações de algoritmos específicos talvez seja necessário o uso de expressões regulares
         """
         self.__parameters = {
+            "file_path": self.file_path,
+            "dataset_path": self.__dataset_path,
+            "results_path": self.__results_path,
+            "algorithm": self.__algorithm,
             "topN": 10,
             "k_folds": 5,
             "random_seed": 1,
@@ -30,7 +37,7 @@ class Settings_Editor(object):
             "learning_rate": 2e-2,
             "reg_lambda": 0.0001,
             "num_neighboors": 10,
-            "similarity": "pcc", # availables: pcc, cos, cos-binary, msd, cpc
+            "similarity": "pcc",  # availables: pcc, cos, cos-binary, msd, cpc
         }
         self.__available_algorithms = [
             "itemknn",
@@ -62,8 +69,8 @@ class Settings_Editor(object):
             "gcslim_lcs",
             "gcslim_mcs"
         ]
-        self.db = pickledb.load("./source/settings_data.db", True)
-        self.save_settings()
+
+        self.load_settings()
 
     # getters e setters para os parametos...
 
@@ -75,8 +82,8 @@ class Settings_Editor(object):
 
         if isinstance(path, str) and os.path.exists(path):
             self.__dataset_path = os.path.abspath(path)
-            return True
-        return False
+            return self.__dataset_path
+        return "ERROR! Path Invalid."
 
     def get_dataset_path(self) -> str:
         return self.__dataset_path
@@ -89,8 +96,8 @@ class Settings_Editor(object):
 
         if isinstance(path, str) and os.path.exists(path):
             self.__results_path = os.path.abspath(path)
-            return True
-        return False
+            return self.__results_path
+        return "ERROR! Path Invalid."
 
     def get_results_path(self) -> str:
         return self.__results_path
@@ -104,30 +111,35 @@ class Settings_Editor(object):
         if isinstance(algo, str) and algo != "":
             if algo.lower() in self.__available_algorithms:
                 self.__algorithm = algo
-                return True
-        return False
+                return algo
+        return "ERROR! Algorithm not available."
 
     def get_algorithm(self) -> str:
-        return  self.__algorithm
-    
+        return self.__algorithm
+
     def set_parameter(self, key: str, value: str) -> bool:
         """
         Define and validate a parameter for the next engine's execution
         and returns a bool for True if the operation is valid.
         """
-
-        if isinstance(key, str) and key in self.__parameters:
-            self.__parameters[key] = value
-            return True
+        if key == "dataset_path":
+            return self.set_dataset_path(value)
+        elif key == "results_path":
+            return self.set_results_path(value)
+        elif key == "algorithm":
+            return self.set_algorithm(value)
         else:
-            return False
+            if isinstance(key, str) and key in self.__parameters:
+                self.__parameters[key] = value
+                return "configuration setted"
+            else:
+                return "ERROR! operation invalid."
 
     def get_parameter(self, key: str) -> dict:
         if isinstance(key, str) and key in self.__parameters:
             return self.__parameters[key]
         else:
-            return {}
-
+            return "ERROR! operation invalid."
 
     def load_settings(self) -> str:
         """
@@ -138,18 +150,12 @@ class Settings_Editor(object):
         if not self.db:
             return "ERROR! No Database connected!"
 
-        if not self.db.get("initialized"):
-            self.db.set("dataset_path", self.__dataset_path)
-            self.db.set("result_path", self.__results_path)
-            self.db.set("algorithm", self.__algorithm)
-            self.db.set("parameters", self.__parameters)
-            self.db.set("initialized", 1)
-            return "no previous settings, DB initialized"
-        
-        self.__dataset_path = self.db.get("dataset_path")
-        self.__result_path = self.db.get("result_path")
-        self.__algorithm = self.db.get("algorithm")
         self.__parameters = self.db.get("parameters")
+        self.__file_path = self.__parameters["file_path"]
+        self.__dataset_path = self.__parameters["dataset_path"]
+        self.__results_path = self.__parameters["results_path"]
+        self.__algorithm = self.__parameters["algorithm"]
+
         return "settings loaded"
 
     def save_settings(self) -> bool:
@@ -158,14 +164,9 @@ class Settings_Editor(object):
         and returns a bool for the success of the operation.
         """
 
-        status = True
-        status = status and self.db.set("dataset_path", self.__dataset_path)
-        status = status and self.db.set("result_path", self.__results_path)
-        status = status and self.db.set("algorithm", self.__algorithm)
-        status = status and self.db.set("parameters", self.__parameters)
-        status = status and self.db.dump()
-        return status
-        
+        self.db.set("parameters", self.__parameters)
+        self.db.dump()
+        return "settings saved"
 
     def generate_file(self) -> str:
         """
@@ -254,12 +255,12 @@ class Settings_Editor(object):
                 settings_file.write(settings_str[i])
 
             settings_file.close()
-            print("#########")
-            print(f"File name: { os.path.basename(self.file_path) }")
-            print("#########")
+            # print("#########")
+            #print(f"File name: { os.path.basename(self.file_path) }")
+            # print("#########")
             return "The settings file was generated!"
         else:
-            return "ERROR! The file is not readable!"   
+            return "ERROR! The file is not readable!"
 
     def __del__(self):
         """
