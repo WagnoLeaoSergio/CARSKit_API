@@ -10,15 +10,17 @@ class Settings_Editor(object):
     The configuration file path need to be specified.
     """
 
-    def __init__(self, file_path: str = "./source/test.conf"):
+    def __init__(self, file_path: str = "./carskit_interface/test.conf"):
 
-        self.db = pickledb.load("./source/settings_data.json", False)
+        self.db = pickledb.load(
+            "./carskit_interface/settings_data.json", False)
 
         self.file_path = os.path.abspath(file_path)
         self.__dataset_path = "None"
 
         # Talvez isso deixe de ser um path e vire só o nome da pasta
-        self.__results_path = os.path.abspath("./source/datasets/results/")
+        self.__results_path = os.path.abspath(
+            "./carskit_interface/datasets/results/")
         self.__algorithm = "camf_cu"
 
         """
@@ -186,7 +188,7 @@ class Settings_Editor(object):
 
         if settings_file.readable():
             settings_str = [
-                "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\source\\datasets\\ratings.txt\n",
+                "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\carskit_interface\\datasets\\ratings.txt\n",
                 "# dataset.ratings.lins=/users/yzheng/desktop/data/restaurant/ratings.txt\n",
                 "dataset.social.wins=-1\n",
                 "dataset.social.lins=-1\n",
