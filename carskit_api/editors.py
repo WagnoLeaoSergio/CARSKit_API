@@ -13,14 +13,14 @@ class Settings_Editor(object):
     def __init__(self, file_path: str = "./carskit_interface/test.conf"):
 
         self.db = pickledb.load(
-            "./carskit_interface/settings_data.json", False)
+            "./carskit_interface/settings_data.json", True)
 
         self.file_path = os.path.abspath(file_path)
         self.__dataset_path = "None"
 
         # Talvez isso deixe de ser um path e vire só o nome da pasta
         self.__results_path = os.path.abspath(
-            "./carskit_interface/datasets/results/")
+            "./carskit_interface/datasets/results")
         self.__algorithm = "camf_cu"
 
         """

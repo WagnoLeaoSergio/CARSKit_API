@@ -12,6 +12,7 @@ import datetime
             coisas....
 """
 
+
 class Model_Statistics_Manager(object):
     """
     Class responsible for managing the statistics created after
@@ -30,54 +31,54 @@ class Model_Statistics_Manager(object):
         fields_founded = False
         stats_data = {
             " * User amount": {
-            "field_name": "user_amount",
+                "field_name": "user_amount",
                 "value": 0
-                },
+            },
             " * Item amount": {
-            "field_name": "item_mount",
+                "field_name": "item_mount",
                 "value": 0
-                },
+            },
             " * Rate amount": {
-            "field_name": "rate_amount",
+                "field_name": "rate_amount",
                 "value": 0
-                },
+            },
             " * Context dimensions": {
-            "field_name": "context_dimensions",
+                "field_name": "context_dimensions",
                 "value": 0
-                },
+            },
             " * Context conditions": {
-            "field_name": "context_conditions",
+                "field_name": "context_conditions",
                 "value": 0
-                },
+            },
             " * Context situations": {
-            "field_name": "context_situations",
+                "field_name": "context_situations",
                 "value": 0
-                },
+            },
             " * Data density": {
-            "field_name": "data_density",
+                "field_name": "data_density",
                 "value": 0
-                },
+            },
             " * Scale distribution": {
                 "field_name": "scale_distributions",
                 "value": ""
             },
             " * Average value of all ratings": {
-            "field_name": "average_ratings",
+                "field_name": "average_ratings",
                 "value": 0
-                },
+            },
             " * Standard deviation of all ratings": {
-            "field_name": "standard_deviation_ratings",
+                "field_name": "standard_deviation_ratings",
                 "value": 0
-                },
+            },
             " * Mode of all rating values": {
-            "field_name": "mode_ratings",
+                "field_name": "mode_ratings",
                 "value": 0
-                },
+            },
             " * Median of all rating values": {
-            "field_name": "median_ratings",
+                "field_name": "median_ratings",
                 "value": 0
-                }
-        }  
+            }
+        }
 
         try:
             for line in statistic_file:
@@ -87,10 +88,11 @@ class Model_Statistics_Manager(object):
                     field = re.split(":", field, 1)
 
                     if field[0] in stats_data:
-                        stats_data[field[0]]["value"] = re.sub(" ", "", field[1])
+                        stats_data[field[0]]["value"] = re.sub(
+                            " ", "", field[1])
                         fields_founded = True
         except KeyError as e:
-            return e.data
+            return e
 
         if not fields_founded:
             return "ERROR! stats file not suporrted"
@@ -107,28 +109,34 @@ class Model_Statistics_Manager(object):
         and returns a message about the operation's success.
         """
 
-
         if "average_ratings" in stats_data and "median_ratings" in stats_data \
-            and "mode_ratings" in stats_data and "standard_deviation_ratings" in stats_data \
-            and "scale_distributions" in stats_data:
+                and "mode_ratings" in stats_data and "standard_deviation_ratings" in stats_data \
+                and "scale_distributions" in stats_data:
 
-            stats_data["average_ratings"] = re.sub(",", ".", stats_data["average_ratings"])
-            stats_data["median_ratings"] = re.sub(",", ".", stats_data["median_ratings"])
-            stats_data["mode_ratings"] = re.sub(",", ".", stats_data["mode_ratings"])
-            stats_data["standard_deviation_ratings"] = re.sub(",", ".", stats_data["standard_deviation_ratings"])
+            stats_data["average_ratings"] = re.sub(
+                ",", ".", stats_data["average_ratings"])
+            stats_data["median_ratings"] = re.sub(
+                ",", ".", stats_data["median_ratings"])
+            stats_data["mode_ratings"] = re.sub(
+                ",", ".", stats_data["mode_ratings"])
+            stats_data["standard_deviation_ratings"] = re.sub(
+                ",", ".", stats_data["standard_deviation_ratings"])
 
-            stats_data["scale_distributions"] = re.split(",",  stats_data["scale_distributions"])
+            stats_data["scale_distributions"] = re.split(
+                ",",  stats_data["scale_distributions"])
 
-            stats_data["scale_distributions"][0] = re.sub(r"\[|\]", "", stats_data["scale_distributions"][0])
+            stats_data["scale_distributions"][0] = re.sub(
+                r"\[|\]", "", stats_data["scale_distributions"][0])
             stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1] = re.sub(
-                r"\[|\]", "", stats_data["scale_distributions"][len(stats_data["scale_distributions"]) - 1]
+                r"\[|\]", "", stats_data["scale_distributions"][len(
+                    stats_data["scale_distributions"]) - 1]
             )
 
             return "statistics data successfully formatted!"
-        
+
         return "ERROR! statistics data dict not supported"
 
-    def save_statistics(self, stats_file_path_:str=None) -> str: 
+    def save_statistics(self, stats_file_path_: str = None) -> str:
         """
         Generate and save the data extracted from the statistic file specified
         and returns a message about the operation's success.
@@ -138,11 +146,11 @@ class Model_Statistics_Manager(object):
         results_folder = os.path.join(current_path, "source/datasets/results/")
 
         if stats_file_path_ is None:
-            stats_file_path = os.path.join(results_folder, self.statistics_filename + ".txt")
+            stats_file_path = os.path.join(
+                results_folder, self.statistics_filename + ".txt")
         else:
             stats_file_path = stats_file_path_
 
-        
         file_name = os.path.basename(stats_file_path)
         file_name = re.split("@|.txt", file_name)[1]
         file_name = re.sub(" ", "_", file_name)
@@ -154,7 +162,7 @@ class Model_Statistics_Manager(object):
             return f"ERROR! The file {stats_file_path} could not be opened."
 
         if statistics_file.readable():
-            
+
             stats_data = self.generate_statistic_data(statistics_file)
             self.format_stats(stats_data)
             statistics_file.close()
@@ -176,7 +184,7 @@ class Recommendations_Manager(object):
     def __init__(self, result_filename="sample_recommendations"):
         self.result_filename = result_filename
 
-    def get_line_header(self, line:str ) -> str, list:
+    def get_line_header(self, line: str):
         """
         Returns the user's id and 
         a list of his contexts from the specified line.
@@ -202,8 +210,7 @@ class Recommendations_Manager(object):
 
         return user, contexts
 
-
-    def get_line_recommendations(self, line:str) -> list:
+    def get_line_recommendations(self, line: str) -> list:
         """
         Returns a list of items and ratings from the
         specified line.
@@ -223,7 +230,7 @@ class Recommendations_Manager(object):
 
         return rec_data
 
-    def create_context_combinations(self, contexts:list) -> str:
+    def create_context_combinations(self, contexts: list) -> str:
         """
         Returns the context combination string from a 
         specified list of contexts.
@@ -236,13 +243,11 @@ class Recommendations_Manager(object):
 
         return ctx
 
-
     def generate_recommendations_data(self, results_file) -> dict:
         """
         Returns a dictionary of items recommendations for each user
         for each combination  for context(s) from a specified file.
         """
-
 
         results_data = {
             "users": {}
@@ -263,7 +268,7 @@ class Recommendations_Manager(object):
 
         return results_data
 
-    def save_recommendations(self, results_file_path_:str=None) -> str:
+    def save_recommendations(self, results_file_path_: str = None) -> str:
         """
         Extract the recommendations from a file which his path need to be specified,
         saves them as a JSON file and returns a message about the operations success.
@@ -273,7 +278,8 @@ class Recommendations_Manager(object):
         results_folder = os.path.join(current_path, "source/datasets/results/")
 
         if results_file_path_ is None:
-            results_file_path = os.path.join(results_folder, self.result_filename + ".txt")
+            results_file_path = os.path.join(
+                results_folder, self.result_filename + ".txt")
         else:
             results_file_path = results_file_path_
 
@@ -287,7 +293,8 @@ class Recommendations_Manager(object):
 
         if recommendations_file.readable():
             header = recommendations_file.readline()
-            results_data = self.generate_recommendations_data(recommendations_file)
+            results_data = self.generate_recommendations_data(
+                recommendations_file)
             recommendations_file.close()
 
             with open(os.path.join(results_folder, self.result_filename + ".json"), 'w') as outfile:

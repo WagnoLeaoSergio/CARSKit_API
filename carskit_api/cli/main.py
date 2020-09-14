@@ -1,0 +1,26 @@
+import sys
+
+from cliff.app import App
+from cliff.commandmanager import CommandManager
+
+
+class CAPI_App(App):
+    def __init__(self):
+        super(CAPI_App, self).__init__(
+            description="A CLI prototype for CARSKit",
+            version="0.0.1",
+            command_manager=CommandManager("capi"),
+            deferred_help=True,
+        )
+
+    def initialize_app(self, argv):
+        self.LOG.debug("initialize_app")
+
+
+def main(argv=sys.argv[1:]):
+    app = CAPI_App()
+    return app.run(argv)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
