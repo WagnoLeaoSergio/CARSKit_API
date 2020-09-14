@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="CARSKit_Interface",
+    name="CARSKit_API",
     version="0.0.1",
     description="An API for the CARSKit engine",
     author="me",
@@ -10,10 +10,10 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     entry_points={
-        "console_scripts": ["capi = capi_proto.capi_cli.main:main"],
+        "console_scripts": ["capi = carskit_api.cli.main:main"],
         "capi": [
-            "run = capi_proto.capi_cli.run:RunEngine",
-            "settings = capi_proto.capi_cli.settings:Settings",
+            "run = carskit_api.cli.run:RunEngine",
+            "settings = carskit_api.cli.settings:Settings",
         ],
     },
 )
