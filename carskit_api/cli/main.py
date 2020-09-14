@@ -1,5 +1,4 @@
 import sys
-
 from cliff.app import App
 from cliff.commandmanager import CommandManager
 

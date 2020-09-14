@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="CARSKit_API",
+    name="carskit_api",
     version="0.0.1",
     description="An API for the CARSKit engine",
     author="me",
