@@ -41,4 +41,3 @@ class RunEngine(Command):
         output = runner.run_engine()
 
         return "output: " + output
-        # return engine_folder_path
