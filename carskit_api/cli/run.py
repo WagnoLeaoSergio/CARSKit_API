@@ -1,10 +1,15 @@
 import logging
+import os
+import pathlib as pl
 from cliff.command import Command
 from ..runner import Runner
 
 
 class RunEngine(Command):
     """Run the CARSKit engine"""
+
+    # CRIAR UMA FLAG PARA MEDIR O TEMPO DE EXECUCAO DA ENGINE
+    # CRIAR UMA FLAG PARA ESPECIFICAR O TIPO DE SAIDA DA ENGINE
 
     def get_parser(self, prog_name):
         """RunEngine argument parsing."""
@@ -20,14 +25,20 @@ class RunEngine(Command):
         return parser
 
     def take_action(self, parsed_args):
-
         """RunEngine action"""
         output = "Is Running!"
 
+        engine_folder_path = pl.Path(
+            os.path.dirname(os.path.abspath(__file__)))
+
+        engine_folder_path = os.path.join(
+            engine_folder_path.parent, "CARSKit/")
+
         runner = Runner(
-            "/home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_Interface/carskit_api/CARSKit"
+            engine_folder_path
         )
 
         output = runner.run_engine()
 
         return "output: " + output
+        # return engine_folder_path

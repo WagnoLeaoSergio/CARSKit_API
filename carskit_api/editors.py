@@ -78,28 +78,26 @@ class Settings_Editor(object):
             self.save_settings()
         self.load_settings()
 
-    # getters e setters para os parametos...
-
-    def set_dataset_path(self, path: str) -> bool:
+    def set_dataset_path(self, path: str) -> str:
         """
         Define and validate the path to the dataset that is going
-        to be used and returns a bool for True if the operation is valid.
+        to be used and returns a message about the operation's success.
         """
 
         if isinstance(path, str) and os.path.exists(path):
             self.__dataset_path = os.path.abspath(path)
             self.__parameters["dataset_path"] = self.__dataset_path
-            
+
             return self.__dataset_path
         return "ERROR! Path Invalid."
 
     def get_dataset_path(self) -> str:
         return self.__dataset_path
 
-    def set_results_path(self, path: str) -> bool:
+    def set_results_path(self, path: str) -> str:
         """
-        Define and validate the path for the result that the engine will generate
-        and returns a bool for True if the operation is valid.
+        Define and validate the path for the results that the engine will generate
+        and returns a message about the operation's success.
         """
 
         if isinstance(path, str) and os.path.exists(path):
@@ -112,10 +110,10 @@ class Settings_Editor(object):
     def get_results_path(self) -> str:
         return self.__results_path
 
-    def set_algorithm(self, algo: str) -> bool:
+    def set_algorithm(self, algo: str) -> str:
         """
         Define and validate the algorithm that is going
-        to be used and returns a bool for True if the operation is valid.
+        to be used and returns a message about the operation's success.
         """
 
         if isinstance(algo, str) and algo != "":
@@ -129,10 +127,10 @@ class Settings_Editor(object):
     def get_algorithm(self) -> str:
         return self.__algorithm
 
-    def set_parameter(self, key: str, value: str) -> bool:
+    def set_parameter(self, key: str, value: str) -> str:
         """
         Define and validate a parameter for the next engine's execution
-        and returns a bool for True if the operation is valid.
+        and returns a message about the operation's success.
         """
         if key == "dataset_path":
             return self.set_dataset_path(value)
@@ -170,15 +168,16 @@ class Settings_Editor(object):
 
         return "settings loaded"
 
-    def save_settings(self) -> bool:
+    def save_settings(self) -> str:
         """
         Saves the current settings to the file 'settings_data.db'
-        and returns a bool for the success of the operation.
+        and returns a message about the operation's success.
         """
 
-        self.db.set("parameters", self.__parameters)
-        self.db.dump()
-        return "settings saved"
+        status = self.db.set("parameters", self.__parameters)
+        if status:
+            self.db.dump()
+        return "settings saved" if status else "saving error"
 
     def generate_file(self) -> str:
         """
