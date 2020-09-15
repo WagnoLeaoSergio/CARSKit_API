@@ -21,6 +21,8 @@ class Settings_Editor(object):
         # Talvez isso deixe de ser um path e vire só o nome da pasta
         self.__results_path = os.path.abspath(
             "./carskit_api/datasets/results")
+
+
         self.__algorithm = "camf_cu"
 
         """
@@ -86,6 +88,8 @@ class Settings_Editor(object):
 
         if isinstance(path, str) and os.path.exists(path):
             self.__dataset_path = os.path.abspath(path)
+            self.__parameters["dataset_path"] = self.__dataset_path
+            
             return self.__dataset_path
         return "ERROR! Path Invalid."
 
@@ -100,6 +104,8 @@ class Settings_Editor(object):
 
         if isinstance(path, str) and os.path.exists(path):
             self.__results_path = os.path.abspath(path)
+            self.__parameters["results_path"] = self.__results_path
+
             return self.__results_path
         return "ERROR! Path Invalid."
 
@@ -114,8 +120,10 @@ class Settings_Editor(object):
 
         if isinstance(algo, str) and algo != "":
             if algo.lower() in self.__available_algorithms:
-                self.__algorithm = algo
-                return algo
+                self.__algorithm = algo.lower()
+                self.__parameters["algorithm"] = self.__algorithm
+
+                return self.__algorithm
         return "ERROR! Algorithm not available."
 
     def get_algorithm(self) -> str:
