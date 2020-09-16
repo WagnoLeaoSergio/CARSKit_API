@@ -17,6 +17,14 @@ setup(
     # Details
     #url  = ""
     include_package_data=True,
+
+    # License
+    license="LICENSE.txt",
+
+    # ReadMe
+    long_description=open("README.txt").read(),
+
+    # Package console entry points
     entry_points={
         "console_scripts": ["capi = carskit_api.cli.main:main"],
         "capi": [
