@@ -13,6 +13,7 @@ setup(
     install_requires=["cliff"],
     # Packages
     packages=find_packages(),
+    python_requires='>=3.6',
 
     # Details
     #url  = ""
