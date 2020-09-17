@@ -1,4 +1,6 @@
 import logging
+import os
+import pathlib as pl
 from cliff.command import Command
 from ..editors import Settings_Editor
 
@@ -33,9 +35,13 @@ class Settings(Command):
         """Settings action"""
         output = "test"
 
-        settings_editor = Settings_Editor(
-            "/home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_Interface/carskit_api/test.conf"
-        )
+        conf_file_path = pl.Path(
+            os.path.dirname(os.path.abspath(__file__)))
+
+        conf_file_path = os.path.join(
+            conf_file_path.parent, "CARSKit/test.conf")
+
+        settings_editor = Settings_Editor(conf_file_path)
 
         if parsed_args.get:
             param = settings_editor.get_parameter(parsed_args.field)
@@ -47,3 +53,5 @@ class Settings(Command):
             return result
 
         return output
+
+        # return conf_file_path

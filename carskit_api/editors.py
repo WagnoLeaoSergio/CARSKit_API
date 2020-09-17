@@ -1,4 +1,5 @@
 import os
+import pathlib as pl
 import subprocess
 import pickledb
 
@@ -10,18 +11,23 @@ class Settings_Editor(object):
     The configuration file path need to be specified.
     """
 
-    def __init__(self, file_path: str = "./carskit_api/test.conf"):
-
-        self.db = pickledb.load(
-            "./carskit_api/settings_data.json", True)
+    def __init__(self, file_path: str):
 
         self.file_path = os.path.abspath(file_path)
+
+        # self.db = pickledb.load("./carskit_api/settings_data.json", True)
+        self.db = pickledb.load(
+            os.path.join(
+                pl.Path(self.file_path).parent,
+                "settings_data.json"),
+            True
+        )
+
         self.__dataset_path = "None"
 
         # Talvez isso deixe de ser um path e vire só o nome da pasta
-        self.__results_path = os.path.abspath(
-            "./carskit_api/datasets/results")
-
+        self.__results_path = os.path.join(
+            pl.Path(self.file_path).parent.parent, "dataset/results/")
 
         self.__algorithm = "camf_cu"
 
@@ -195,6 +201,7 @@ class Settings_Editor(object):
         except FileNotFoundError:
             return "ERROR! The settings file path was not founded!"
 
+        # VER NO GUIA DA ENGINE SE ELA CONSEGUE IDENTIFICAR O SISTEMA OPERACIONAL
         if settings_file.readable():
             settings_str = [
                 "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_api\\carskit_api\\datasets\\ratings.txt\n",
@@ -267,7 +274,7 @@ class Settings_Editor(object):
 
             settings_file.close()
             # print("#########")
-            #print(f"File name: { os.path.basename(self.file_path) }")
+            # print(f"File name: { os.path.basename(self.file_path) }")
             # print("#########")
             return "The settings file was generated!"
         else:
