@@ -1,4 +1,5 @@
 import os
+import sys
 import pathlib as pl
 import subprocess
 import pickledb
@@ -13,6 +14,7 @@ class Settings_Editor(object):
 
     def __init__(self, file_path: str):
 
+        self.__op_system = sys.platform
         self.file_path = os.path.abspath(file_path)
 
         # self.db = pickledb.load("./carskit_api/settings_data.json", True)
@@ -192,7 +194,7 @@ class Settings_Editor(object):
         """
 
         if not os.path.exists(self.file_path):
-            return "ERROR! File of settings file do not exist!"
+            return "ERROR! Settings file's path do not exist!"
         if self.__dataset_path == "":
             return "ERROR! No dataset selected!"
 
@@ -202,10 +204,10 @@ class Settings_Editor(object):
             return "ERROR! The settings file path was not founded!"
 
         # VER NO GUIA DA ENGINE SE ELA CONSEGUE IDENTIFICAR O SISTEMA OPERACIONAL
-        if settings_file.readable():
+        if settings_file.writable():
             settings_str = [
-                "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_api\\carskit_api\\datasets\\ratings.txt\n",
-                "# dataset.ratings.lins=/users/yzheng/desktop/data/restaurant/ratings.txt\n",
+                f"dataset.ratings.wins={self.__file_path}\n",
+                f"dataset.ratings.lins={self.__file_path}\n",
                 "dataset.social.wins=-1\n",
                 "dataset.social.lins=-1\n",
                 "# options: -columns: (user, item, [rating, [timestamp]]) columns of rating data; -threshold: to binary ratings;\n",

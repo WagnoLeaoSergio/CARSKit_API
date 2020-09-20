@@ -3,6 +3,7 @@ import os
 import pathlib as pl
 from cliff.command import Command
 from ..runner import Runner
+from ..editors import Settings_Editor
 
 
 class RunEngine(Command):
@@ -30,14 +31,18 @@ class RunEngine(Command):
 
         engine_folder_path = pl.Path(
             os.path.dirname(os.path.abspath(__file__)))
-
         engine_folder_path = os.path.join(
             engine_folder_path.parent, "CARSKit/")
 
-        runner = Runner(
-            engine_folder_path
-        )
+        conf_file_path = os.path.join(engine_folder_path, "test.conf")
 
-        output = runner.run_engine()
+        settings_editor = Settings_Editor(conf_file_path)
+        runner = Runner(engine_folder_path)
 
-        return "output: " + output
+        status = settings_editor.generate_file()
+        if status == "The settings file was generated!":
+            output = runner.run_engine()
+        else:
+            output = "An error has occured, execution canceled."
+
+        return output
