@@ -53,5 +53,3 @@ class Settings(Command):
             return result
 
         return output
-
-        # return conf_file_path

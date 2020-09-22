@@ -16,15 +16,8 @@ class Runner(object):
         """
         Runs the Java file and return the output of the execution.
         """
-        #print('basename:    ', os.path.basename(__file__))
-        #print('dirname:     ', os.path.dirname(__file__))
-        #print('getcwd:      ', os.getcwd())
-        #print('__file__:    ', __file__)
-
-        #current_path = os.path.abspath(os.getcwd())
-        #path = current_path + "\\CARSKit"
         os.chdir(self.javaFile_path)
         output = subprocess.call(
-            ['java', '-jar', 'CARSKit-v0.3.5.jar', 'test.conf'])
+            ['java', '-jar', 'CARSKit-v0.3.5.jar', '-c', 'test.conf'])
         os.chdir(self.current_path)
         return output

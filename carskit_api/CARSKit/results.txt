@@ -1,15 +1,15 @@
-WorkingPath: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/datasets/results/
-Your original rating data path: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/datasets/ratings.txt
-Current working path: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/datasets/results/
+WorkingPath: /home/wagno/Documents/data_test/results1/
+Your original rating data path: /home/wagno/Documents/data_test/ratings.txt
+Current working path: /home/wagno/Documents/data_test/results1/
 User, Item, Rating, time:na, time:weekday, time:weekend, location:na, location:cinema, location:home, companion:na, companion:alone, companion:family, companion:partner
-Data transformaton completed (from Compact to Binary format). See new rating file: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/datasets/results/train.csv
-Dataset: ...skit_api/datasets/results/train.csv
-DataPath: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/datasets/results/train.csv
+Data transformaton completed (from Compact to Binary format). See new rating file: /home/wagno/Documents/data_test/results1/train.csv
+Dataset: ...uments/data_test/results1/train.csv
+DataPath: /home/wagno/Documents/data_test/results1/train.csv
 Rating data set has been successfully loaded.
 
-/****************************************************************************************************
+/*******************************************************************************
  *
- * Dataset: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/datasets/results/train.csv
+ * Dataset: /home/wagno/Documents/data_test/results1/train.csv
  * 
  * Statistics of U-I-C Matrix:
  * User amount: 97
@@ -25,7 +25,7 @@ Rating data set has been successfully loaded.
  * Mode of all rating values: 5.000000
  * Median of all rating values: 4.000000
  *
- ****************************************************************************************************/
-With Setup: cv -k 5 -p on --rand-seed 1 --test-view all
-Final Results by ItemKNN, Pre5: 0.083958,Pre10: 0.070016, Rec5: 0.140883, Rec10: 0.233650, AUC5: 0.636224, AUC10: 0.684534, MAP5: 0.076828, MAP10: 0.095455,NDCG5: 0.117902, NDCG10: 0.158393,MRR5: 0.172848, MRR10: 0.189749, 10, pcc, -1, Time: '00:00','00:01'
+ *******************************************************************************/
+With Setup: cv -k 2 -p on --rand-seed 1 --test-view all
+Final Results by UserKNN, Pre5: 0.130081,Pre10: 0.119072, Pre12: 0.114444, Rec5: 0.105174, Rec10: 0.191038, Rec12: 0.217207, AUC5: 0.650605, AUC10: 0.705997, AUC12: 0.718131, MAP5: 0.051151, MAP10: 0.073514, MAP12: 0.078885, NDCG5: 0.100725, NDCG10: 0.149697,NDCG12: 0.162962,MRR5: 0.196457, MRR10: 0.217245,MRR12: 0.220705, 10, pcc, -1, Time: '00:00','00:00'
 

@@ -28,18 +28,20 @@ class Settings_Editor(object):
         self.__dataset_path = "None"
 
         # Talvez isso deixe de ser um path e vire só o nome da pasta
-        self.__results_path = os.path.join(
-            pl.Path(self.file_path).parent.parent, "dataset/results/")
+        # self.__results_foldername = os.path.join(
+        #    pl.Path(self.file_path).parent.parent, "dataset/results/")
+        self.__results_foldername = "results"
 
         self.__algorithm = "camf_cu"
 
         """
         Para as configurações de algoritmos específicos talvez seja necessário o uso de expressões regulares
         """
+
         self.__parameters = {
             "file_path": self.file_path,
             "dataset_path": self.__dataset_path,
-            "results_path": self.__results_path,
+            "results_foldername": self.__results_foldername,
             "algorithm": self.__algorithm,
             "topN": 10,
             "k_folds": 5,
@@ -51,6 +53,7 @@ class Settings_Editor(object):
             "num_neighboors": 10,
             "similarity": "pcc",  # availables: pcc, cos, cos-binary, msd, cpc
         }
+
         self.__available_algorithms = [
             "itemknn",
             "userknn",
@@ -102,21 +105,20 @@ class Settings_Editor(object):
     def get_dataset_path(self) -> str:
         return self.__dataset_path
 
-    def set_results_path(self, path: str) -> str:
+    def set_results_foldername(self, name: str) -> str:
         """
-        Define and validate the path for the results that the engine will generate
+        Define and validate the name for the results that the engine will generate
         and returns a message about the operation's success.
         """
+        if isinstance(name, str):
+            self.__results_foldername = name
+            self.__parameters["results_foldername"] = self.__results_foldername
 
-        if isinstance(path, str) and os.path.exists(path):
-            self.__results_path = os.path.abspath(path)
-            self.__parameters["results_path"] = self.__results_path
-
-            return self.__results_path
+            return self.__results_foldername
         return "ERROR! Path Invalid."
 
-    def get_results_path(self) -> str:
-        return self.__results_path
+    def get_results_foldername(self) -> str:
+        return self.__results_foldername
 
     def set_algorithm(self, algo: str) -> str:
         """
@@ -142,8 +144,8 @@ class Settings_Editor(object):
         """
         if key == "dataset_path":
             return self.set_dataset_path(value)
-        elif key == "results_path":
-            return self.set_results_path(value)
+        elif key == "results_foldername":
+            return self.set_results_foldername(value)
         elif key == "algorithm":
             return self.set_algorithm(value)
         else:
@@ -164,14 +166,14 @@ class Settings_Editor(object):
         Try to load the settings configuration from the file 'settings_data.db'
         and return an operation message.
         """
-
         if not self.db:
             return "ERROR! No Database connected!"
 
         self.__parameters = self.db.get("parameters")
+
         self.__file_path = self.__parameters["file_path"]
         self.__dataset_path = self.__parameters["dataset_path"]
-        self.__results_path = self.__parameters["results_path"]
+        self.__results_foldername = self.__parameters["results_foldername"]
         self.__algorithm = self.__parameters["algorithm"]
 
         return "settings loaded"
@@ -206,8 +208,8 @@ class Settings_Editor(object):
         # VER NO GUIA DA ENGINE SE ELA CONSEGUE IDENTIFICAR O SISTEMA OPERACIONAL
         if settings_file.writable():
             settings_str = [
-                f"dataset.ratings.wins={self.__file_path}\n",
-                f"dataset.ratings.lins={self.__file_path}\n",
+                "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\source\\datasets\\ratings.txt\n",
+                f"dataset.ratings.lins={self.__parameters['dataset_path']}\n",
                 "dataset.social.wins=-1\n",
                 "dataset.social.lins=-1\n",
                 "# options: -columns: (user, item, [rating, [timestamp]]) columns of rating data; -threshold: to binary ratings;\n",
@@ -224,10 +226,10 @@ class Settings_Editor(object):
                 "# other options: -ignore NumOfPopularItems\n",
                 f"evaluation.setup=cv -k {self.__parameters['k_folds']} -p on --rand-seed {self.__parameters['random_seed']} --test-view all\n",
                 f"item.ranking=on -topN {self.__parameters['topN']}\n",
-                "output.setup=-folder results -verbose on, off --to-file results_all.txt\n",
+                f"output.setup=-folder results1 -verbose on, off --to-file results_all.txt\n",
                 "# Guava cache configuration\n",
                 "guava.cache.spec=maximumSize=200,expireAfterAccess=2m\n",
-                "########################### Model-based Methods ############################\n#"
+                "########################### Model-based Methods ############################\n"
                 f"num.factors={self.__parameters['num_factors']}\n",
                 f"num.max.iter={self.__parameters['num_max_iterations']}\n",
                 "# options: -bold-driver, -decay ratio, -moment value\n",
@@ -236,13 +238,13 @@ class Settings_Editor(object):
                 "#reg.lambda=10 -u 0.001 -i 0.001 -b 0.001 -s 0.001 -c 0.001\n",
                 "# probabilistic graphic models\n",
                 "pgm.setup=-alpha 2 -beta 0.5 -burn-in 300 -sample-lag 10 -interval 100\n",
-                "########################### Memory-based Methods ##########################\n#"
+                "########################### Memory-based Methods ##########################\n"
                 "# similarity method: PCC, COS, COS-Binary, MSD, CPC, exJaccard; -1 to disable shrinking;\n",
                 f"similarity={self.__parameters['similarity']}\n",
                 "num.shrinkage=-1\n",
                 "# neighborhood size; -1 to use as many as possible.\n",
                 f"num.neighbors={self.__parameters['num_neighboors']}\n",
-                "########################## Method-specific Settings ########################\n#"
+                "########################## Method-specific Settings ########################\n"
                 "AoBPR=-lambda 0.3\n",
                 "BUCM=-gamma 0.5\n",
                 "BHfree=-k 10 -l 10 -gamma 0.2 -sigma 0.01\n",

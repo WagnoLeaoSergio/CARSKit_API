@@ -1,6 +1,7 @@
 import re
 import json
 import os
+import pathlib as pl
 import datetime
 
 """
@@ -19,10 +20,13 @@ class Model_Statistics_Manager(object):
     an execution of the engine. Requires the name of the statistics file.
     """
 
-    def __init__(self, statistics_filename="sample@statistics"):
+    def __init__(self, output_folder: str, statistics_filename="sample@statistics"):
         self.statistics_filename = statistics_filename
+        self.output_folder = output_folder
+        self.current_path = pl.Path(
+            os.path.dirname(os.path.abspath(__file__)))
 
-    def generate_statistic_data(self, statistic_file: str) -> dict:
+    def generate_statistic_data(self, statistic_file) -> dict:
         """
         Extracts the essencial data from the statistics file specified and
         returns it as an dictionary.
@@ -142,8 +146,11 @@ class Model_Statistics_Manager(object):
         and returns a message about the operation's success.
         """
 
-        current_path = os.path.abspath(os.getcwd())
-        results_folder = os.path.join(current_path, "source/datasets/results/")
+        results_folder = os.path.join(
+            self.current_path, f"datasets/{self.output_folder}/")
+
+        if not os.path.exists(results_folder):
+            os.mkdir(results_folder)
 
         if stats_file_path_ is None:
             stats_file_path = os.path.join(
@@ -181,7 +188,11 @@ class Recommendations_Manager(object):
     an execution of the engine. Requires the name of the recommendation file.
     """
 
-    def __init__(self, result_filename="sample_recommendations"):
+    def __init__(self, output_folder: str, result_filename="sample_recommendations"):
+
+        self.current_path = pl.Path(
+            os.path.dirname(os.path.abspath(__file__)))
+        self.output_folder = output_folder
         self.result_filename = result_filename
 
     def get_line_header(self, line: str):
@@ -243,7 +254,7 @@ class Recommendations_Manager(object):
 
         return ctx
 
-    def generate_recommendations_data(self, results_file) -> dict:
+    def generate_recommendations_data(self, recs_files) -> dict:
         """
         Returns a dictionary of items recommendations for each user
         for each combination  for context(s) from a specified file.
@@ -253,8 +264,10 @@ class Recommendations_Manager(object):
             "users": {}
         }
 
-        for line in results_file:
+        header = recs_files.readline()
+        for line in recs_files:
 
+            print(line)
             user, contexts = self.get_line_header(line)
             recommendations = self.get_line_recommendations(line)
             context_combination = self.create_context_combinations(contexts)
@@ -274,8 +287,8 @@ class Recommendations_Manager(object):
         saves them as a JSON file and returns a message about the operations success.
         """
 
-        current_path = os.path.abspath(os.getcwd())
-        results_folder = os.path.join(current_path, "source/datasets/results/")
+        results_folder = os.path.join(
+            self.current_path, f"datasets/{self.output_folder}/")
 
         if results_file_path_ is None:
             results_file_path = os.path.join(
@@ -292,7 +305,6 @@ class Recommendations_Manager(object):
             return f"ERROR! The file {results_file_path} could not be opened."
 
         if recommendations_file.readable():
-            header = recommendations_file.readline()
             results_data = self.generate_recommendations_data(
                 recommendations_file)
             recommendations_file.close()
