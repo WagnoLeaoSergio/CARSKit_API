@@ -151,13 +151,7 @@ class Model_Statistics_Manager(object):
         if not os.path.exists(results_folder):
             os.mkdir(results_folder)
 
-        # else:
-        #    stats_file_path = stats_file_path_
-
         file_name = os.path.basename(stats_file_path)
-        ##file_name = re.split("@|.txt", file_name)[1]
-        #file_name = re.sub(" ", "_", file_name)
-        #file_name = "execution_" + file_name
 
         try:
             statistics_file = open(stats_file_path, "w+")
@@ -166,12 +160,9 @@ class Model_Statistics_Manager(object):
 
         if statistics_file.writable():
 
-            #stats_data = self.generate_statistic_data(statistics_file)
             self.format_stats(stats_data)
-            # statistics_file.close()
-
-            # with open(os.path.join(results_folder, file_name + ".json"), 'w') as outfile:
             json.dump(stats_data, statistics_file)
+            statistics_file.close()
 
             return f"The file {file_name + '.json'} was successfully created!"
 
@@ -276,37 +267,29 @@ class Recommendations_Manager(object):
 
         return results_data
 
-    def save_recommendations(self, results_file_path_: str = None) -> str:
+    def save_recommendations(self, recs_data, recs_file_path: str = None) -> str:
         """
         Extract the recommendations from a file which his path need to be specified,
         saves them as a JSON file and returns a message about the operations success.
         """
 
-        results_folder = os.path.join(
-            self.current_path, f"datasets/{self.output_folder}/")
+        results_folder = pl.Path(os.path.dirname(recs_file_path)).parent
 
-        if results_file_path_ is None:
-            results_file_path = os.path.join(
-                results_folder, self.result_filename + ".txt")
-        else:
-            results_file_path = results_file_path_
+        if not os.path.exists(results_folder):
+            os.mkdir(results_folder)
 
-        results_filename = os.path.basename(results_file_path)
-        results_filename = re.split(".txt", results_filename)[0]
+        file_name = os.path.basename(recs_file_path)
 
         try:
-            recommendations_file = open(results_file_path, "r")
+            recommendations_file = open(recs_file_path, "w+")
         except FileNotFoundError:
-            return f"ERROR! The file {results_file_path} could not be opened."
+            return f"ERROR! The file {recs_file_path} could not be opened."
 
-        if recommendations_file.readable():
-            results_data = self.generate_recommendations_data(
-                recommendations_file)
+        if recommendations_file.writable():
+
+            json.dump(recs_data, recommendations_file)
             recommendations_file.close()
 
-            with open(os.path.join(results_folder, self.result_filename + ".json"), 'w') as outfile:
-                json.dump(results_data, outfile)
+            return f"The file {file_name + '.json'} was successfully created!"
 
-            return f"The file {results_filename + '.json'} was successfully created!"
-
-        return f"ERROR! The file {results_file_path} is not readable."
+        return f"ERROR! The file {recs_file_path} is not readable."

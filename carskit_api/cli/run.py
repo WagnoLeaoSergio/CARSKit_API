@@ -110,17 +110,17 @@ class RunEngine(Command):
                 execution_datafiles[1]
             )
 
-            # print(recommendations)
-            # print("")
-            # print(execution_stats)
-
             stats_mgn.save_statistics(
                 execution_stats,
                 os.path.join(target_path, stats_filename)
+            )
+            recs_mgn.save_recommendations(
+                recommendations,
+                os.path.join(target_path, recs_filename)
             )
 
             return
         else:
             output = "An error has occured, execution canceled."
 
-        return "oi"
+        return
