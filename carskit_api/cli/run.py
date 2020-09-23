@@ -62,11 +62,11 @@ class RunEngine(Command):
 
     def take_action(self, parsed_args):
         """RunEngine action"""
-        output = "Is Running!"
+        #output = "Is Running!"
 
         app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
-        engine_folder_path = os.path.join(app_path, "CARSKit/")
-        conf_file_path = os.path.join(app_path, "CARSKit/test.conf")
+        engine_folder_path = os.path.join(app_path, "carskit/")
+        conf_file_path = os.path.join(app_path, "carskit/test.conf")
 
         settings_editor = Settings_Editor(conf_file_path)
         runner = Runner(engine_folder_path)

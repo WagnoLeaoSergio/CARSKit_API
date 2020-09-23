@@ -1,0 +1,45 @@
+[INFO ] 2020-09-23 13:29:42,612 -- WorkingPath: /home/wagno/Documents/data_test/results1/
+[INFO ] 2020-09-23 13:29:42,632 -- Your original rating data path: /home/wagno/Documents/data_test/ratings.txt
+[INFO ] 2020-09-23 13:29:42,632 -- Current working path: /home/wagno/Documents/data_test/results1/
+[WARN ] 2020-09-23 13:29:42,658 -- You rating data is in Compact format. CARSKit is working on transformation on the data format...
+[INFO ] 2020-09-23 13:29:42,770 -- User, Item, Rating, time:na, time:weekday, time:weekend, location:na, location:cinema, location:home, companion:na, companion:alone, companion:family, companion:partner
+[INFO ] 2020-09-23 13:29:42,844 -- Data transformaton completed (from Compact to Binary format). See new rating file: /home/wagno/Documents/data_test/results1/train.csv
+[INFO ] 2020-09-23 13:29:42,951 -- Dataset: ...uments/data_test/results1/train.csv
+[INFO ] 2020-09-23 13:29:42,954 -- DataPath: /home/wagno/Documents/data_test/results1/train.csv
+[INFO ] 2020-09-23 13:29:43,177 -- Rating data set has been successfully loaded.
+[INFO ] 2020-09-23 13:29:43,226 -- 
+/*******************************************************************************
+ *
+ * Dataset: /home/wagno/Documents/data_test/results1/train.csv
+ * 
+ * Statistics of U-I-C Matrix:
+ * User amount: 97
+ * Item amount: 79
+ * Rate amount: 5035
+ * Context dimensions: 3 (time, location, companion)
+ * Context conditions: 10 (time: 3, location: 3, companion: 4)
+ * Context situations: 13
+ * Data density: 1.8230%
+ * Scale distribution: [1.0 x 829, 2.0 x 625, 4.0 x 1209, 5.0 x 1367, 3.0 x 1005]
+ * Average value of all ratings: 3.328892
+ * Standard deviation of all ratings: 1.414777
+ * Mode of all rating values: 5.000000
+ * Median of all rating values: 4.000000
+ *
+ *******************************************************************************/
+[INFO ] 2020-09-23 13:29:43,239 -- With Setup: cv -k 2 -p on --rand-seed 1 --test-view all
+[DEBUG] 2020-09-23 13:29:43,256 -- Fold [1]: training amount: 2514, test amount: 2515
+[DEBUG] 2020-09-23 13:29:43,269 -- Fold [2]: training amount: 2515, test amount: 2514
+[DEBUG] 2020-09-23 13:29:43,271 -- Build user similarity matrix ...
+[DEBUG] 2020-09-23 13:29:43,277 -- Build user similarity matrix ...
+[DEBUG] 2020-09-23 13:29:43,304 -- UserKNN fold [1] evaluate test data ... 
+[DEBUG] 2020-09-23 13:29:43,304 -- UserKNN fold [2] evaluate test data ... 
+[DEBUG] 2020-09-23 13:29:43,312 -- UserKNN fold [1] has candidate items: 79
+[DEBUG] 2020-09-23 13:29:43,314 -- UserKNN fold [2] has candidate items: 79
+[DEBUG] 2020-09-23 13:29:44,128 -- UserKNN fold [2] has writeen item recommendations to /home/wagno/Documents/data_test/results1/UserKNN-top-12-items fold [2].txt
+[DEBUG] 2020-09-23 13:29:44,183 -- UserKNN fold [2]: Pre5: 0.139666,Pre10: 0.113679, Pre12: 0.111422, Rec5: 0.112779, Rec10: 0.175420, Rec12: 0.202826, AUC5: 0.656321, AUC10: 0.703880, AUC12: 0.714179, MAP5: 0.057591, MAP10: 0.074686, MAP12: 0.080226, NDCG5: 0.109909, NDCG10: 0.146949,NDCG12: 0.161085,MRR5: 0.210268, MRR10: 0.228509,MRR12: 0.231592	Time: 00:00, 00:00
+[DEBUG] 2020-09-23 13:29:44,190 -- UserKNN fold [1] has writeen item recommendations to /home/wagno/Documents/data_test/results1/UserKNN-top-12-items fold [1].txt
+[DEBUG] 2020-09-23 13:29:44,191 -- UserKNN fold [1]: Pre5: 0.120496,Pre10: 0.124464, Pre12: 0.117467, Rec5: 0.097569, Rec10: 0.206655, Rec12: 0.231587, AUC5: 0.644889, AUC10: 0.708113, AUC12: 0.722083, MAP5: 0.044711, MAP10: 0.072343, MAP12: 0.077544, NDCG5: 0.091540, NDCG10: 0.152446,NDCG12: 0.164840,MRR5: 0.182645, MRR10: 0.205981,MRR12: 0.209819	Time: 00:00, 00:00
+[INFO ] 2020-09-23 13:29:44,193 -- Final Results by UserKNN, Pre5: 0.130081,Pre10: 0.119072, Pre12: 0.114444, Rec5: 0.105174, Rec10: 0.191038, Rec12: 0.217207, AUC5: 0.650605, AUC10: 0.705997, AUC12: 0.718131, MAP5: 0.051151, MAP10: 0.073514, MAP12: 0.078885, NDCG5: 0.100725, NDCG10: 0.149697,NDCG12: 0.162962,MRR5: 0.196457, MRR10: 0.217245,MRR12: 0.220705, 10, pcc, -1, Time: '00:00','00:00'
+
+[DEBUG] 2020-09-23 13:29:44,200 -- Have been collected to file: results_all.txt

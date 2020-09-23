@@ -39,7 +39,7 @@ class Settings(Command):
             os.path.dirname(os.path.abspath(__file__)))
 
         conf_file_path = os.path.join(
-            conf_file_path.parent, "CARSKit/test.conf")
+            conf_file_path.parent, "carskit/test.conf")
 
         settings_editor = Settings_Editor(conf_file_path)
 
