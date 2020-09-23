@@ -14,19 +14,26 @@ class Settings(Command):
         group = parser.add_mutually_exclusive_group()
 
         group.add_argument(
-            "--set",
+            "-s", "--set",
             help="set a new value for a specific configuration",
             action="store_true",
         )
-
         group.add_argument(
-            "--get",
+            "-g", "--get",
             help="get the value of the configuration specified",
             action="store_true",
         )
 
         parser.add_argument(
-            "field", help="The name of the cofiguration field", action="store"
+            "field",
+            help="The name of the configuration field",
+            action="store"
+        )
+
+        parser.add_argument(
+            "--value",
+            help="The new value for the configuration field specified. When the --get flag is setted this argument is disabled.",
+            action="store"
         )
 
         return parser
@@ -48,7 +55,10 @@ class Settings(Command):
             return str(param)
 
         if parsed_args.set:
-            value = input("Select the value for the configuration: ")
+            if not parsed_args.value:
+                return "No value setted. Operation canceled."
+
+            value = parsed_args.value
             result = settings_editor.set_parameter(parsed_args.field, value)
             return result
 
