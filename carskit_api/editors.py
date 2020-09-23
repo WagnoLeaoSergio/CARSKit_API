@@ -208,7 +208,7 @@ class Settings_Editor(object):
         # VER NO GUIA DA ENGINE SE ELA CONSEGUE IDENTIFICAR O SISTEMA OPERACIONAL
         if settings_file.writable():
             settings_str = [
-                "dataset.ratings.wins=C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\source\\datasets\\ratings.txt\n",
+                f"dataset.ratings.wins={self.__parameters['dataset_path']}\n",
                 f"dataset.ratings.lins={self.__parameters['dataset_path']}\n",
                 "dataset.social.wins=-1\n",
                 "dataset.social.lins=-1\n",
