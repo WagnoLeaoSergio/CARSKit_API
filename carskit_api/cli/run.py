@@ -72,8 +72,9 @@ class RunEngine(Command):
         runner = Runner(engine_folder_path)
 
         current_time = datetime.datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
-        stats_filename = f"execution@{current_time}"
-        recs_filename = f"recomendations@{current_time}"
+
+        stats_filename = f"execution@{current_time}.json"
+        recs_filename = f"recomendations@{current_time}.json"
 
         stats_mgn = Model_Statistics_Manager(
             settings_editor.get_results_foldername(),
@@ -89,13 +90,15 @@ class RunEngine(Command):
 
         if status == "The settings file was generated!":
 
-            output = runner.run_engine()
+            runner.run_engine()
 
             execution_datafiles = self.latest_execution_data(
                 app_path,
                 settings_editor.get_dataset_path(),
                 settings_editor.get_results_foldername()
             )
+
+            target_path = pl.Path(execution_datafiles[0]).parent.parent
 
             execution_stats = self.extract_stat_data(
                 stats_mgn,
@@ -107,12 +110,17 @@ class RunEngine(Command):
                 execution_datafiles[1]
             )
 
-            print(recommendations)
-            print("")
-            print(execution_stats)
+            # print(recommendations)
+            # print("")
+            # print(execution_stats)
+
+            stats_mgn.save_statistics(
+                execution_stats,
+                os.path.join(target_path, stats_filename)
+            )
 
             return
         else:
             output = "An error has occured, execution canceled."
 
-        return output
+        return "oi"

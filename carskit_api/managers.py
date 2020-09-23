@@ -140,42 +140,38 @@ class Model_Statistics_Manager(object):
 
         return "ERROR! statistics data dict not supported"
 
-    def save_statistics(self, stats_file_path_: str = None) -> str:
+    def save_statistics(self, stats_data, stats_file_path: str = None) -> str:
         """
         Generate and save the data extracted from the statistic file specified
         and returns a message about the operation's success.
         """
 
-        results_folder = os.path.join(
-            self.current_path, f"datasets/{self.output_folder}/")
+        results_folder = pl.Path(os.path.dirname(stats_file_path)).parent
 
         if not os.path.exists(results_folder):
             os.mkdir(results_folder)
 
-        if stats_file_path_ is None:
-            stats_file_path = os.path.join(
-                results_folder, self.statistics_filename + ".txt")
-        else:
-            stats_file_path = stats_file_path_
+        # else:
+        #    stats_file_path = stats_file_path_
 
         file_name = os.path.basename(stats_file_path)
-        file_name = re.split("@|.txt", file_name)[1]
-        file_name = re.sub(" ", "_", file_name)
-        file_name = "execution_" + file_name
+        ##file_name = re.split("@|.txt", file_name)[1]
+        #file_name = re.sub(" ", "_", file_name)
+        #file_name = "execution_" + file_name
 
         try:
-            statistics_file = open(stats_file_path, "r")
+            statistics_file = open(stats_file_path, "w+")
         except FileNotFoundError:
             return f"ERROR! The file {stats_file_path} could not be opened."
 
-        if statistics_file.readable():
+        if statistics_file.writable():
 
-            stats_data = self.generate_statistic_data(statistics_file)
+            #stats_data = self.generate_statistic_data(statistics_file)
             self.format_stats(stats_data)
-            statistics_file.close()
+            # statistics_file.close()
 
-            with open(os.path.join(results_folder, file_name + ".json"), 'w') as outfile:
-                json.dump(stats_data, outfile)
+            # with open(os.path.join(results_folder, file_name + ".json"), 'w') as outfile:
+            json.dump(stats_data, statistics_file)
 
             return f"The file {file_name + '.json'} was successfully created!"
 
@@ -267,7 +263,6 @@ class Recommendations_Manager(object):
         header = recs_files.readline()
         for line in recs_files:
 
-            print(line)
             user, contexts = self.get_line_header(line)
             recommendations = self.get_line_recommendations(line)
             context_combination = self.create_context_combinations(contexts)
