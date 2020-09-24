@@ -2,7 +2,7 @@
 
 # CARSKit-API
 
-CARSKit-API is a software based on a command line interface that serves as an abstraction layer for the CARSKit recommendation system engine. Built entirely in python, it aims to provide both a more dynamic and secure way of handling the input and output of engine data.
+CARSKit-API is a software based on a command line interface that serves as an abstraction layer for the [CARSKit](https://github.com/irecsys/CARSKit) recommendation system engine. Built entirely in python, it aims to provide both a more dynamic and secure way of handling the input and output of engine data.
 
 ## Requirements
 
