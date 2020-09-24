@@ -180,7 +180,7 @@ class Settings_Editor(object):
 
     def save_settings(self) -> str:
         """
-        Saves the current settings to the file 'settings_data.db'
+        Saves the current settings to the file 'settings_data.json'
         and returns a message about the operation's success.
         """
 
