@@ -1,6 +1,9 @@
 import sys
+import os
+import pathlib as pl
 from cliff.app import App
 from cliff.commandmanager import CommandManager
+from ..editors import Settings_Editor
 
 
 class CAPI_App(App):
@@ -14,6 +17,11 @@ class CAPI_App(App):
 
     def initialize_app(self, argv):
         self.LOG.debug("initialize_app")
+        app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
+        settings_editor = Settings_Editor(
+            os.path.join(app_path, "carskit/setting.conf")
+        )
+        settings_editor.save_settings()
 
 
 def main(argv=sys.argv[1:]):
