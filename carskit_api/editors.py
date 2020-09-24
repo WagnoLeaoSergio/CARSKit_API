@@ -226,7 +226,7 @@ class Settings_Editor(object):
                 "# other options: -ignore NumOfPopularItems\n",
                 f"evaluation.setup=cv -k {self.__parameters['k_folds']} -p on --rand-seed {self.__parameters['random_seed']} --test-view all\n",
                 f"item.ranking=on -topN {self.__parameters['topN']}\n",
-                f"output.setup=-folder results1 -verbose on, off --to-file results_all.txt\n",
+                f"output.setup=-folder {self.__parameters['results_foldername']} -verbose on, off --to-file results_all.txt\n",
                 "# Guava cache configuration\n",
                 "guava.cache.spec=maximumSize=200,expireAfterAccess=2m\n",
                 "########################### Model-based Methods ############################\n"

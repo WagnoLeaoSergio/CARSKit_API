@@ -1,5 +1,5 @@
 attrs==20.2.0
--e git+https://github.com/WagnoLeaoSergio/CARSKit_API@637a6e563cdf9bbea754facc48c83a72051a976d#egg=carskit_api
+-e git+https://github.com/WagnoLeaoSergio/CARSKit_API@57a1137764eee6efb0d7374c07b78d037f99817a#egg=carskit_api
 cliff==3.4.0
 cmd2==1.3.9
 colorama==0.4.3

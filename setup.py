@@ -23,7 +23,7 @@ setup(
     license="LICENSE.txt",
 
     # ReadMe
-    long_description=open("README.txt").read(),
+    long_description=open("README.md").read(),
 
     # Package console entry points
     entry_points={

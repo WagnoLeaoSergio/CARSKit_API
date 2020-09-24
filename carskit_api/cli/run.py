@@ -66,7 +66,7 @@ class RunEngine(Command):
 
         app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
         engine_folder_path = os.path.join(app_path, "carskit/")
-        conf_file_path = os.path.join(app_path, "carskit/test.conf")
+        conf_file_path = os.path.join(app_path, "carskit/setting.conf")
 
         settings_editor = Settings_Editor(conf_file_path)
         runner = Runner(engine_folder_path)
