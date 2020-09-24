@@ -24,7 +24,6 @@ class Settings_Editor(object):
                 "settings_data.json"),
             True
         )
-        print(os.path.join(pl.Path(self.file_path).parent, "settings_data.json"))
 
         self.__dataset_path = "None"
 

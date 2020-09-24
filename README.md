@@ -38,7 +38,7 @@ Now we need to specify both the data set path and the results folder name for th
 
 ```shell
 $ capi settings --set "dataset_path" --value ./ratings.csv
-$ capi settings --set "results_fodername" --value "results"
+$ capi settings --set "results_foldername" --value "results"
 ```
 
 You can use the command `capi -h` to know more about the api's commands.

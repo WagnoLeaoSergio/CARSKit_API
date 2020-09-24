@@ -1,0 +1,31 @@
+WorkingPath: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/data/results/
+Your original rating data path: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/data/ratings.txt
+Current working path: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/data/results/
+User, Item, Rating, time:na, time:weekday, time:weekend, location:na, location:cinema, location:home, companion:na, companion:alone, companion:family, companion:partner
+Data transformaton completed (from Compact to Binary format). See new rating file: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/data/results/train.csv
+Dataset: .../carskit_api/data/results/train.csv
+DataPath: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/data/results/train.csv
+Rating data set has been successfully loaded.
+
+/************************************************************************************************
+ *
+ * Dataset: /home/wagno/Documents/Pesquisa_de_bolsa/CARSKit_API/carskit_api/data/results/train.csv
+ * 
+ * Statistics of U-I-C Matrix:
+ * User amount: 97
+ * Item amount: 79
+ * Rate amount: 5035
+ * Context dimensions: 3 (time, location, companion)
+ * Context conditions: 10 (time: 3, location: 3, companion: 4)
+ * Context situations: 13
+ * Data density: 1.8230%
+ * Scale distribution: [1.0 x 829, 2.0 x 625, 4.0 x 1209, 5.0 x 1367, 3.0 x 1005]
+ * Average value of all ratings: 3.328892
+ * Standard deviation of all ratings: 1.414777
+ * Mode of all rating values: 5.000000
+ * Median of all rating values: 4.000000
+ *
+ ************************************************************************************************/
+With Setup: cv -k 2 -p on --rand-seed 1 --test-view all
+Final Results by ItemKNN, Pre5: 0.144864,Pre10: 0.124383, Pre12: 0.119274, Rec5: 0.117049, Rec10: 0.202507, Rec12: 0.236424, AUC5: 0.660343, AUC10: 0.714472, AUC12: 0.726727, MAP5: 0.071205, MAP10: 0.094248, MAP12: 0.101134, NDCG5: 0.125945, NDCG10: 0.173923,NDCG12: 0.189235,MRR5: 0.262902, MRR10: 0.282590,MRR12: 0.285681, 12, pcc, -1, Time: '00:00','00:00'
+
