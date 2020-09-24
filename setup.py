@@ -4,13 +4,13 @@ setup(
     # Application name
     name="carskit_api",
     # Version number
-    version="0.0.2",
+    version="0.0.3",
     description="An API for the CARSKit engine",
     # Application author details
     author="WagnoLeaoSergio",
     author_email="wagnoleao@gmail.com",
     # Dependencies
-    install_requires=["cliff"],
+    install_requires=["cliff", "pickleDB"],
     # Packages
     packages=find_packages(),
     python_requires='>=3.6',
