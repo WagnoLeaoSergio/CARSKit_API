@@ -6,7 +6,7 @@ CARSKit-API is a software based on a command line interface that serves as an ab
 
 ## Requirements
 
-It is necessary that both python and java are installed on the computer to run the software.
+It is necessary that both python 3.6 and java 1.7 or higher are installed on the computer to run the software.
 
 ## Installation
 
