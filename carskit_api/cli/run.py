@@ -11,7 +11,13 @@ from ..managers import Model_Statistics_Manager, Recommendations_Manager
 
 
 class RunEngine(Command):
-    """Run the CARSKit engine"""
+    """
+    Run the CARSKit engine
+
+    In the present time, this class is also responsible for
+    getting the engine's latest data and saving the formatted statistics
+    and recommendations
+    """
 
     # CRIAR UMA FLAG PARA MEDIR O TEMPO DE EXECUCAO DA ENGINE
     # CRIAR UMA FLAG PARA ESPECIFICAR O TIPO DE SAIDA DA ENGINE
@@ -62,20 +68,24 @@ class RunEngine(Command):
 
     def take_action(self, parsed_args):
         """RunEngine action"""
-        #output = "Is Running!"
 
+        # Getting  where the app is on computer
         app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
         engine_folder_path = os.path.join(app_path, "carskit/")
         conf_file_path = os.path.join(app_path, "carskit/setting.conf")
 
+        # Instantiating  the Runner and the Settings_Editor classes
         settings_editor = Settings_Editor(conf_file_path)
         runner = Runner(engine_folder_path)
 
+        # Getting the current date for file creation
         current_time = datetime.datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
 
+        # Creating the names of the statistics and recommendations files.
         stats_filename = f"execution@{current_time}.json"
         recs_filename = f"recomendations@{current_time}.json"
 
+        # Instantiating the Model_Statistics_Manager and Recommendations_Manager classes
         stats_mgn = Model_Statistics_Manager(
             settings_editor.get_results_foldername(),
             stats_filename,
@@ -86,30 +96,37 @@ class RunEngine(Command):
             recs_filename
         )
 
+        # Generations the setting.conf file with the latest configurations
         status = settings_editor.generate_file()
 
         if status == "The settings file was generated!":
 
+            # Running engine
             runner.run_engine()
 
+            # Getting path of the latest files the engine has created
             execution_datafiles = self.latest_execution_data(
                 app_path,
                 settings_editor.get_dataset_path(),
                 settings_editor.get_results_foldername()
             )
 
+            # Getting the path where the files will be saved
             target_path = pl.Path(execution_datafiles[0]).parent.parent
 
+            # Extrating the data of the statistics file
             execution_stats = self.extract_stat_data(
                 stats_mgn,
                 execution_datafiles[0]
             )
 
+            # Extrating the data of the recommendtations file
             recommendations = self.extract_recommendations(
                 recs_mgn,
                 execution_datafiles[1]
             )
 
+            # Saving the statistics and recommendations files in the target path
             stats_mgn.save_statistics(
                 execution_stats,
                 os.path.join(target_path, stats_filename)

@@ -18,7 +18,18 @@ class Model_Statistics_Manager(object):
     """
     Class responsible for managing the statistics created after
     an execution of the engine. Requires the name of the statistics file.
+
+    Parameters:
+    ----------
+        output_folder: str
+            The name of the folder where the engine will create the
+            next execution's statistics.
+
+        statistics_filename: str
+            The name of the next execution's statistics file.
     """
+
+    # OS PARAMETROS NAO ESTAO SENDO USADOS
 
     def __init__(self, output_folder: str, statistics_filename="sample@statistics"):
         self.statistics_filename = statistics_filename
@@ -30,6 +41,29 @@ class Model_Statistics_Manager(object):
         """
         Extracts the essencial data from the statistics file specified and
         returns it as an dictionary.
+
+        Parameters:
+        ----------
+            statistic_file: IO
+                The statistics file from which the data will be extracted.
+
+        The variables that will be extracted from the file are:
+            User amount
+            Item amount
+            Rate amount
+            Context dimensions
+            Context conditions
+            Context situations
+            Data density
+            Scale distribution
+            Average value of all ratings
+            Standard deviation of all ratings
+            Mode of all rating values
+            Median of all rating values
+
+        Returns:
+        --------
+            A dictionary with the extrated data.
         """
 
         fields_founded = False
@@ -109,8 +143,15 @@ class Model_Statistics_Manager(object):
 
     def format_stats(self, stats_data: dict) -> str:
         """
-        Format the dictionary of statistical data specified
-        and returns a message about the operation's success.
+        Format the dictionary of statistical data specified.
+
+        Parameters:
+        ----------
+            stats_data: dict
+                The extracted data from the statistics file.
+
+        Returns:
+            A message about the success of the operation.
         """
 
         if "average_ratings" in stats_data and "median_ratings" in stats_data \
@@ -142,8 +183,17 @@ class Model_Statistics_Manager(object):
 
     def save_statistics(self, stats_data, stats_file_path: str = None) -> str:
         """
-        Generate and save the data extracted from the statistic file specified
-        and returns a message about the operation's success.
+        Generate and save the data extracted from the statistic file specified.
+
+        Parameters:
+        ----------
+            stats_data: dict
+                The extracted data from the statistics file.
+            stats_file_path: str
+                The path where the statitics file is going the be saved.
+
+        Returns:
+            A message about the success of the operation.
         """
 
         results_folder = pl.Path(os.path.dirname(stats_file_path)).parent
@@ -173,7 +223,18 @@ class Recommendations_Manager(object):
     """
     Class responsible for managing the recommendations generated after
     an execution of the engine. Requires the name of the recommendation file.
+
+    Parameters:
+    ----------
+        output_folder: str
+            The name of the folder where the engine will create the
+            next execution's recommendations.
+
+        result_filename: str
+            The name of the next execution's recommendations file.
     """
+
+    # OS PARAMETROS NAO ESTAO SENDO USADOS
 
     def __init__(self, output_folder: str, result_filename="sample_recommendations"):
 
@@ -241,18 +302,22 @@ class Recommendations_Manager(object):
 
         return ctx
 
-    def generate_recommendations_data(self, recs_files) -> dict:
+    def generate_recommendations_data(self, recs_file) -> dict:
         """
         Returns a dictionary of items recommendations for each user
         for each combination  for context(s) from a specified file.
+
+        Parameters:
+            recs_file: IO
+                The recommendations file loaded.
         """
 
         results_data = {
             "users": {}
         }
 
-        header = recs_files.readline()
-        for line in recs_files:
+        header = recs_file.readline()
+        for line in recs_file:
 
             user, contexts = self.get_line_header(line)
             recommendations = self.get_line_recommendations(line)
@@ -271,6 +336,14 @@ class Recommendations_Manager(object):
         """
         Extract the recommendations from a file which his path need to be specified,
         saves them as a JSON file and returns a message about the operations success.
+
+        Parameters:
+        ----------
+            recs_data: dict
+                The recommendation that was extrated from the engine's file.
+
+            recs_file_path: 
+                The path where the recommendations will be saved.
         """
 
         results_folder = pl.Path(os.path.dirname(recs_file_path)).parent

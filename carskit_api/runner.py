@@ -6,6 +6,11 @@ class Runner(object):
     """
     Class that runs the CARSKit java file.
     It is only need the complete or relative path to the file to run it.
+
+    Parameters:
+    ----------
+        javaFile_path: str
+            The path for the folder where the engine's java file is.
     """
 
     def __init__(self, javaFile_path: str):

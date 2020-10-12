@@ -10,6 +10,59 @@ class Settings_Editor(object):
     Class that manage all the parameters needed to
     generate the configuration file (setting.conf) for the engine.
     The configuration file path need to be specified.
+
+    Parameters:
+    ----------
+        file_path: str
+            The string of the configuration file path.
+
+    Available Configurations:
+    ------------------------
+        'file_path'
+        'dataset_path'
+        'results_foldername'
+        'algorithm'
+        'topN'
+        'k_folds'
+        'random_seed'
+        'num_factors'
+        'num_max_iterations'
+        'learning_rate'
+        'reg_lambda'
+        'num_neighboors'
+        'similarity'
+
+    Available algorithms:
+    --------------------
+        "itemknn"
+        "userknn"
+        "slopeone"
+        "pmf"
+        "bpmf"
+        "biasedmf"
+        "nmf"
+        "svd++"
+        "usersplitting"
+        "itemsplitting"
+        "uisplitting"
+        "spf"
+        "dcr"
+        "dcw"
+        "cptf"
+        "camf_ci"
+        "camf_cu"
+        "camf_cuci"
+        "cslim_ci"
+        "cslim_cu"
+        "cslim_cuci"
+        "gcslim_cc"
+        "cslim_ics"
+        "cslim_lcs"
+        "cslim_mcs"
+        "gcslim_ics"
+        "gcslim_lcs"
+        "gcslim_mcs"
+
     """
 
     def __init__(self, file_path: str):
@@ -93,6 +146,15 @@ class Settings_Editor(object):
         """
         Define and validate the path to the dataset that is going
         to be used and returns a message about the operation's success.
+
+        Parameters:
+        ----------
+            path: str
+                The path for the txt or csv dataset file
+
+        Returns:
+        -------
+            str: The dataset path, if the operation the was successfull, or a error message if not.
         """
 
         if isinstance(path, str) and os.path.exists(path):
@@ -109,6 +171,15 @@ class Settings_Editor(object):
         """
         Define and validate the name for the results that the engine will generate
         and returns a message about the operation's success.
+
+        Parameters:
+        ----------
+            name: str
+                The folder name where the engine will create the reccomendations.
+
+        Returns:
+        -------
+            str: The folder name, if the operation the was successfull, or a error message if not.
         """
         if isinstance(name, str):
             self.__results_foldername = name
@@ -124,6 +195,15 @@ class Settings_Editor(object):
         """
         Define and validate the algorithm that is going
         to be used and returns a message about the operation's success.
+
+        Parameters:
+        ----------
+            algo: str
+                The algorithm's name that will be used in the next engine's execution.
+
+        Returns:
+        -------
+            str: The algorithm's name, if the operation the was successfull, or a error message if not.
         """
 
         if isinstance(algo, str) and algo != "":
@@ -141,7 +221,19 @@ class Settings_Editor(object):
         """
         Define and validate a parameter for the next engine's execution
         and returns a message about the operation's success.
+
+        Parameters:
+        ----------
+            key: str
+                The parameter's name that will be changed.
+            value: str
+                The new value for the parameter specified.
+
+        Returns:
+        -------
+            str: The new value, if the operation the was successfull, or a error message if not.
         """
+
         if key == "dataset_path":
             return self.set_dataset_path(value)
         elif key == "results_foldername":
@@ -277,15 +369,10 @@ class Settings_Editor(object):
                 settings_file.write(settings_str[i])
 
             settings_file.close()
-            # print("#########")
-            # print(f"File name: { os.path.basename(self.file_path) }")
-            # print("#########")
             return "The settings file was generated!"
         else:
             return "ERROR! The file is not readable!"
 
     def __del__(self):
-        """
-        Saves the settings when the class is dealocated.
-        """
+        '''Saves the settings when the class is dealocated.'''
         self.save_settings()
