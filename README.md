@@ -10,10 +10,10 @@ It is necessary that both python 3.6 and java 1.7 or higher are installed on the
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip3](https://pip.pypa.io/en/stable/) to install carskit-api.
 
 ```bash
-pip install carskit-api
+pip3 install carskit-api
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ First, it is necessary to create a folder for the rating data that will be used.
 $ mkdir data
 ```
 
-Remember that the data must be in the same format that the engine requires. If in doubt, look in the [User Guide](https://arxiv.org/abs/1511.03780).
+Contextual datasets are referenced in the [CARSKIT repository](https://github.com/irecsys/CARSKit) to use as example. Remember that the data must be in the same format that the engine requires. If in doubt, look in the [User Guide](https://arxiv.org/abs/1511.03780).
 
 With the folder created, enter it and create another one for the results that the engine will generate and insert the data set that will be used.
 
