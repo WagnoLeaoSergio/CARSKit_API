@@ -4,7 +4,6 @@ import pathlib as pl
 from cliff.command import Command
 from ..editors import Settings_Editor
 
-
 class Settings(Command):
     """Edit the Engine's Settings"""
 

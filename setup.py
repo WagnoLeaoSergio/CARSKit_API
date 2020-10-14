@@ -10,7 +10,7 @@ setup(
     author="WagnoLeaoSergio",
     author_email="wagnoleao@gmail.com",
     # Dependencies
-    install_requires=["cliff", "pickleDB"],
+    install_requires=["cliff", "pickleDB", "pymongo", "dnspython"],
     # Packages
     packages=find_packages(),
     python_requires='>=3.6',
@@ -31,6 +31,7 @@ setup(
         "capi": [
             "run = carskit_api.cli.run:RunEngine",
             "settings = carskit_api.cli.settings:Settings",
+            "database = carskit_api.cli.database:Database"
         ],
     },
 )
