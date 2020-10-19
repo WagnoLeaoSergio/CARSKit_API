@@ -15,22 +15,25 @@ class Database(Command):
 
         parser.add_argument(
             "--url",
-            help="Especify the MongoDB server URL to create a connection",
+            help="Especifies the MongoDB server URL to create a connection",
             action="store")
 
         return parser
 
-    def test_connection(self, mdb_url, maxServDelay=50):
+    def test_connection(self, mdb_url, maxServDelay=2000):
         try:
             testClient = pymongo.MongoClient(
                 mdb_url, serverSelectionTimeoutMS=maxServDelay)
             testClient.server_info()
         except pymongo.errors.ServerSelectionTimeoutError as err:
-            return "No connection"
+            print(err)
+            return 0
+
+        return 1
 
     def take_action(self, parsed_args):
 
-        if self.test_connection(parsed_args.url) == "No connection":
+        if not self.test_connection(parsed_args.url):
             return "ERROR! Could not connect to the server"
 
         app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
@@ -38,4 +41,5 @@ class Database(Command):
                                    False)
 
         configs_db.set("mongoDB_URL", parsed_args.url)
-        return
+        configs_db.dump()
+        return "MongoDB url saved."
