@@ -1,13 +1,13 @@
-[INFO ] 2020-10-19 19:15:44,548 -- WorkingPath: /home/wagno/Documents/data_test/results/
-[INFO ] 2020-10-19 19:15:44,554 -- Your original rating data path: /home/wagno/Documents/data_test/ratings.txt
-[INFO ] 2020-10-19 19:15:44,555 -- Current working path: /home/wagno/Documents/data_test/results/
-[WARN ] 2020-10-19 19:15:44,558 -- You rating data is in Compact format. CARSKit is working on transformation on the data format...
-[INFO ] 2020-10-19 19:15:44,603 -- User, Item, Rating, time:na, time:weekday, time:weekend, location:na, location:cinema, location:home, companion:na, companion:alone, companion:family, companion:partner
-[INFO ] 2020-10-19 19:15:44,680 -- Data transformaton completed (from Compact to Binary format). See new rating file: /home/wagno/Documents/data_test/results/train.csv
-[INFO ] 2020-10-19 19:15:44,701 -- Dataset: ...cuments/data_test/results/train.csv
-[INFO ] 2020-10-19 19:15:44,705 -- DataPath: /home/wagno/Documents/data_test/results/train.csv
-[INFO ] 2020-10-19 19:15:44,845 -- Rating data set has been successfully loaded.
-[INFO ] 2020-10-19 19:15:44,860 -- 
+[INFO ] 2020-10-20 17:32:10,573 -- WorkingPath: /home/wagno/Documents/data_test/results/
+[INFO ] 2020-10-20 17:32:10,579 -- Your original rating data path: /home/wagno/Documents/data_test/ratings.txt
+[INFO ] 2020-10-20 17:32:10,579 -- Current working path: /home/wagno/Documents/data_test/results/
+[WARN ] 2020-10-20 17:32:10,583 -- You rating data is in Compact format. CARSKit is working on transformation on the data format...
+[INFO ] 2020-10-20 17:32:10,623 -- User, Item, Rating, time:na, time:weekday, time:weekend, location:na, location:cinema, location:home, companion:na, companion:alone, companion:family, companion:partner
+[INFO ] 2020-10-20 17:32:10,693 -- Data transformaton completed (from Compact to Binary format). See new rating file: /home/wagno/Documents/data_test/results/train.csv
+[INFO ] 2020-10-20 17:32:10,711 -- Dataset: ...cuments/data_test/results/train.csv
+[INFO ] 2020-10-20 17:32:10,713 -- DataPath: /home/wagno/Documents/data_test/results/train.csv
+[INFO ] 2020-10-20 17:32:10,859 -- Rating data set has been successfully loaded.
+[INFO ] 2020-10-20 17:32:10,877 -- 
 /*******************************************************************************
  *
  * Dataset: /home/wagno/Documents/data_test/results/train.csv
@@ -27,19 +27,19 @@
  * Median of all rating values: 4.000000
  *
  *******************************************************************************/
-[INFO ] 2020-10-19 19:15:44,862 -- With Setup: cv -k 2 -p on --rand-seed 1 --test-view all
-[DEBUG] 2020-10-19 19:15:44,890 -- Fold [1]: training amount: 2514, test amount: 2515
-[DEBUG] 2020-10-19 19:15:44,901 -- Fold [2]: training amount: 2515, test amount: 2514
-[DEBUG] 2020-10-19 19:15:44,903 -- Build item similarity matrix ...
-[DEBUG] 2020-10-19 19:15:44,909 -- Build item similarity matrix ...
-[DEBUG] 2020-10-19 19:15:44,931 -- ItemKNN fold [2] evaluate test data ... 
-[DEBUG] 2020-10-19 19:15:44,931 -- ItemKNN fold [1] evaluate test data ... 
-[DEBUG] 2020-10-19 19:15:44,937 -- ItemKNN fold [2] has candidate items: 79
-[DEBUG] 2020-10-19 19:15:44,938 -- ItemKNN fold [1] has candidate items: 79
-[DEBUG] 2020-10-19 19:15:45,599 -- ItemKNN fold [1] has writeen item recommendations to /home/wagno/Documents/data_test/results/ItemKNN-top-12-items fold [1].txt
-[DEBUG] 2020-10-19 19:15:45,606 -- ItemKNN fold [1]: Pre5: 0.152138,Pre10: 0.130513, Pre12: 0.122127, Rec5: 0.122040, Rec10: 0.207752, Rec12: 0.238142, AUC5: 0.660123, AUC10: 0.709650, AUC12: 0.716817, MAP5: 0.074223, MAP10: 0.098841, MAP12: 0.105452, NDCG5: 0.130108, NDCG10: 0.178917,NDCG12: 0.192255,MRR5: 0.263601, MRR10: 0.281260,MRR12: 0.282759	Time: 00:00, 00:00
-[DEBUG] 2020-10-19 19:15:45,641 -- ItemKNN fold [2] has writeen item recommendations to /home/wagno/Documents/data_test/results/ItemKNN-top-12-items fold [2].txt
-[DEBUG] 2020-10-19 19:15:45,642 -- ItemKNN fold [2]: Pre5: 0.137590,Pre10: 0.118252, Pre12: 0.116421, Rec5: 0.112058, Rec10: 0.197262, Rec12: 0.234707, AUC5: 0.660563, AUC10: 0.719294, AUC12: 0.736637, MAP5: 0.068187, MAP10: 0.089656, MAP12: 0.096816, NDCG5: 0.121783, NDCG10: 0.168929,NDCG12: 0.186215,MRR5: 0.262203, MRR10: 0.283919,MRR12: 0.288603	Time: 00:00, 00:00
-[INFO ] 2020-10-19 19:15:45,645 -- Final Results by ItemKNN, Pre5: 0.144864,Pre10: 0.124383, Pre12: 0.119274, Rec5: 0.117049, Rec10: 0.202507, Rec12: 0.236424, AUC5: 0.660343, AUC10: 0.714472, AUC12: 0.726727, MAP5: 0.071205, MAP10: 0.094248, MAP12: 0.101134, NDCG5: 0.125945, NDCG10: 0.173923,NDCG12: 0.189235,MRR5: 0.262902, MRR10: 0.282590,MRR12: 0.285681, 12, pcc, -1, Time: '00:00','00:00'
+[INFO ] 2020-10-20 17:32:10,879 -- With Setup: cv -k 2 -p on --rand-seed 1 --test-view all
+[DEBUG] 2020-10-20 17:32:10,920 -- Fold [1]: training amount: 2514, test amount: 2515
+[DEBUG] 2020-10-20 17:32:10,932 -- Fold [2]: training amount: 2515, test amount: 2514
+[DEBUG] 2020-10-20 17:32:10,938 -- Build item similarity matrix ...
+[DEBUG] 2020-10-20 17:32:10,943 -- Build item similarity matrix ...
+[DEBUG] 2020-10-20 17:32:10,968 -- ItemKNN fold [2] evaluate test data ... 
+[DEBUG] 2020-10-20 17:32:10,968 -- ItemKNN fold [1] evaluate test data ... 
+[DEBUG] 2020-10-20 17:32:10,977 -- ItemKNN fold [2] has candidate items: 79
+[DEBUG] 2020-10-20 17:32:10,977 -- ItemKNN fold [1] has candidate items: 79
+[DEBUG] 2020-10-20 17:32:11,598 -- ItemKNN fold [1] has writeen item recommendations to /home/wagno/Documents/data_test/results/ItemKNN-top-12-items fold [1].txt
+[DEBUG] 2020-10-20 17:32:11,605 -- ItemKNN fold [1]: Pre5: 0.152138,Pre10: 0.130513, Pre12: 0.122127, Rec5: 0.122040, Rec10: 0.207752, Rec12: 0.238142, AUC5: 0.660123, AUC10: 0.709650, AUC12: 0.716817, MAP5: 0.074223, MAP10: 0.098841, MAP12: 0.105452, NDCG5: 0.130108, NDCG10: 0.178917,NDCG12: 0.192255,MRR5: 0.263601, MRR10: 0.281260,MRR12: 0.282759	Time: 00:00, 00:00
+[DEBUG] 2020-10-20 17:32:11,645 -- ItemKNN fold [2] has writeen item recommendations to /home/wagno/Documents/data_test/results/ItemKNN-top-12-items fold [2].txt
+[DEBUG] 2020-10-20 17:32:11,646 -- ItemKNN fold [2]: Pre5: 0.137590,Pre10: 0.118252, Pre12: 0.116421, Rec5: 0.112058, Rec10: 0.197262, Rec12: 0.234707, AUC5: 0.660563, AUC10: 0.719294, AUC12: 0.736637, MAP5: 0.068187, MAP10: 0.089656, MAP12: 0.096816, NDCG5: 0.121783, NDCG10: 0.168929,NDCG12: 0.186215,MRR5: 0.262203, MRR10: 0.283919,MRR12: 0.288603	Time: 00:00, 00:00
+[INFO ] 2020-10-20 17:32:11,648 -- Final Results by ItemKNN, Pre5: 0.144864,Pre10: 0.124383, Pre12: 0.119274, Rec5: 0.117049, Rec10: 0.202507, Rec12: 0.236424, AUC5: 0.660343, AUC10: 0.714472, AUC12: 0.726727, MAP5: 0.071205, MAP10: 0.094248, MAP12: 0.101134, NDCG5: 0.125945, NDCG10: 0.173923,NDCG12: 0.189235,MRR5: 0.262902, MRR10: 0.282590,MRR12: 0.285681, 12, pcc, -1, Time: '00:00','00:00'
 
-[DEBUG] 2020-10-19 19:15:45,646 -- Have been collected to file: results_all.txt
+[DEBUG] 2020-10-20 17:32:11,648 -- Have been collected to file: results_all.txt
