@@ -6,6 +6,7 @@ import pathlib as pl
 import pickledb
 import pymongo
 from cliff.command import Command
+from ..controllers.mongo_connection import test_connection
 
 
 class Database(Command):
@@ -20,20 +21,9 @@ class Database(Command):
 
         return parser
 
-    def test_connection(self, mdb_url, maxServDelay=2000):
-        try:
-            testClient = pymongo.MongoClient(
-                mdb_url, serverSelectionTimeoutMS=maxServDelay)
-            testClient.server_info()
-        except pymongo.errors.ServerSelectionTimeoutError as err:
-            print(err)
-            return 0
-
-        return 1
-
     def take_action(self, parsed_args):
 
-        if not self.test_connection(parsed_args.url):
+        if not test_connection(parsed_args.url):
             return "ERROR! Could not connect to the server"
 
         app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
