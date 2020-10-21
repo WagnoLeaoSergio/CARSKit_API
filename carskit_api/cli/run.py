@@ -22,7 +22,8 @@ class RunEngine(Command):
     """
 
     # CRIAR UMA FLAG PARA MEDIR O TEMPO DE EXECUCAO DA ENGINE
-    # CRIAR UMA FLAG PARA ESPECIFICAR O TIPO DE SAIDA DA ENGINEas
+    # CRIAR UMA FLAG PARA ESPECIFICAR O TIPO DE SAIDA DA ENGINE
+    # CRIAR UMA FLAG PARA ESCOLHER SE UM NOVO setting.conf SERA CRIADO OU NÃO
 
     def get_parser(self, prog_name):
         """RunEngine argument parsing."""

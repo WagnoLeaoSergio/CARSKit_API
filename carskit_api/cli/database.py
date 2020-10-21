@@ -6,8 +6,10 @@ import pathlib as pl
 import pickledb
 import pymongo
 from cliff.command import Command
+from cryptography.fernet import Fernet
 
-# from ..controllers.mongo_connection import test_connection
+from ..controllers.mongo_connection import test_connection
+from ..controllers.data_processing import get_app_path, encrypt, decrypt
 
 
 class Database(Command):
@@ -15,10 +17,19 @@ class Database(Command):
 
     def get_parser(self, prog_name):
         parser = super(Database, self).get_parser(prog_name)
+        group = parser.add_mutually_exclusive_group()
 
-        parser.add_argument(
+        group.add_argument(
             "--url",
             help="Especifies the MongoDB server URL to create a connection",
+            dest="url",
+            action="store",
+        )
+
+        group.add_argument(
+            "--secrets-path",
+            help="Especifies the path for the file '.secrets.key'",
+            dest="path",
             action="store",
         )
 
@@ -26,12 +37,38 @@ class Database(Command):
 
     def take_action(self, parsed_args):
 
-        if not test_connection(parsed_args.url):
-            return "ERROR! Could not connect to the server"
+        if parsed_args.path:
+            if os.path.exists(parsed_args.path):
+                app_path = get_app_path()
+                configs_db = pickledb.load(
+                    os.path.join(app_path, "configs.json"), False
+                )
+                configs_db.set("skpath", parsed_args.path)
+                configs_db.dump()
 
-        app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
-        configs_db = pickledb.load(os.path.join(app_path, "configs.json"), False)
+                return "'.secrets.key' path saved."
+            return "The path specified do not exists."
 
-        configs_db.set("mongoDB_URL", parsed_args.url)
-        configs_db.dump()
-        return "MongoDB url saved."
+        if parsed_args.url:
+            if not test_connection(parsed_args.url):
+                return "ERROR! Could not connect to the server"
+
+            # Getting where the package is in the computer
+            app_path = get_app_path()
+            configs_db = pickledb.load(os.path.join(app_path, "configs.json"), False)
+
+            # Opening the '.secrets.key' file previously specified
+            secrets_path = configs_db.get("skpath")
+            secrets_file = open(secrets_path, mode="w+")
+
+            # Generating a new key to encrypt the URL
+            new_key = Fernet.generate_key()
+            url_encripted = encrypt(parsed_args.url.encode(), new_key)
+
+            # Saving the key in the file
+            secrets_file.write(new_key.decode())
+
+            # Saving the encripted url in the configs_db
+            configs_db.set("mdburl", url_encripted.decode())
+            configs_db.dump()
+            return "MongoDB url saved."

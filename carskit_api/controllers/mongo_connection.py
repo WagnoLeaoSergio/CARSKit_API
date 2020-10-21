@@ -2,7 +2,7 @@ import os
 import pymongo
 import pickledb
 
-from .data_processing import get_app_path
+from .data_processing import get_app_path, decrypt
 
 
 def test_connection(mdb_url, maxServDelay=2000):
@@ -22,7 +22,14 @@ def upload_output(data):
     app_path = get_app_path()
     configs_db = pickledb.load(os.path.join(app_path, "configs.json"), False)
 
-    mdb_url = configs_db.get("mongoDB_URL")
+    secrets_path = configs_db.get("skpath")
+    secrets_file = open(secrets_path, mode="r")
+
+    key = secrets_file.read()
+
+    mdb_url_encrypted = configs_db.get("mdburl")
+    mdb_url = decrypt(mdb_url_encrypted.encode(), key.encode()).decode()
+
     if test_connection(mdb_url):
         mongo_client = pymongo.MongoClient(mdb_url)
 

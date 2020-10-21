@@ -9,3 +9,4 @@ carskit_api.egg-info/
 build/
 dist/
 ./carskit_api/configs.json
+.secrets.key

@@ -23,6 +23,7 @@ class Runner(object):
         """
         os.chdir(self.javaFile_path)
         output = subprocess.call(
-            ['java', '-jar', 'CARSKit-v0.3.5.jar', '-c', 'setting.conf'])
+            ["java", "-jar", "CARSKit-v0.3.5.jar", "-c", "setting.conf"]
+        )
         os.chdir(self.current_path)
         return output

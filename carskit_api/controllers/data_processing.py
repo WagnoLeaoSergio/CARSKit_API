@@ -3,6 +3,8 @@ import glob
 import datetime
 import pathlib as pl
 
+from cryptography.fernet import Fernet
+
 
 def get_app_path():
     return pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
@@ -43,3 +45,11 @@ def extract_recommendations(recs_manager, recs_filepath):
     recommendations_file.close()
 
     return recommendations
+
+
+def encrypt(message: bytes, key: bytes) -> bytes:
+    return Fernet(key).encrypt(message)
+
+
+def decrypt(token: bytes, key: bytes) -> bytes:
+    return Fernet(key).decrypt(token)
