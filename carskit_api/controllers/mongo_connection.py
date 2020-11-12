@@ -5,9 +5,9 @@ import pickledb
 from .data_processing import get_app_path, decrypt
 
 
-def test_connection(mdb_url, maxServDelay=2000):
+def test_connection(mdb_uri, maxServDelay=2000):
     try:
-        testClient = pymongo.MongoClient(mdb_url, serverSelectionTimeoutMS=maxServDelay)
+        testClient = pymongo.MongoClient(mdb_uri, serverSelectionTimeoutMS=maxServDelay)
         testClient.server_info()
     except pymongo.errors.ServerSelectionTimeoutError as err:
         print(err)
@@ -27,11 +27,11 @@ def upload_output(data):
 
     key = secrets_file.read()
 
-    mdb_url_encrypted = configs_db.get("mdburl")
-    mdb_url = decrypt(mdb_url_encrypted.encode(), key.encode()).decode()
+    mdb_uri_encrypted = configs_db.get("mdburi")
+    mdb_uri = decrypt(mdb_uri_encrypted.encode(), key.encode()).decode()
 
-    if test_connection(mdb_url):
-        mongo_client = pymongo.MongoClient(mdb_url)
+    if test_connection(mdb_uri):
+        mongo_client = pymongo.MongoClient(mdb_uri)
 
         capiDB = mongo_client["capi"]
         stats_collection = capiDB["statistics"]

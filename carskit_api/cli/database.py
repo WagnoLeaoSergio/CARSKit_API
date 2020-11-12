@@ -20,9 +20,9 @@ class Database(Command):
         group = parser.add_mutually_exclusive_group()
 
         group.add_argument(
-            "--url",
-            help="Especifies the MongoDB server URL to create a connection",
-            dest="url",
+            "--uri",
+            help="Especifies the MongoDB server URI to create a connection",
+            dest="uri",
             action="store",
         )
 
@@ -49,8 +49,8 @@ class Database(Command):
                 return "'.secrets.key' path saved."
             return "The path specified do not exists."
 
-        if parsed_args.url:
-            if not test_connection(parsed_args.url):
+        if parsed_args.uri:
+            if not test_connection(parsed_args.uri):
                 return "ERROR! Could not connect to the server"
 
             # Getting where the package is in the computer
@@ -61,14 +61,14 @@ class Database(Command):
             secrets_path = configs_db.get("skpath")
             secrets_file = open(secrets_path, mode="w+")
 
-            # Generating a new key to encrypt the URL
+            # Generating a new key to encrypt the URI
             new_key = Fernet.generate_key()
-            url_encripted = encrypt(parsed_args.url.encode(), new_key)
+            uri_encripted = encrypt(parsed_args.uri.encode(), new_key)
 
             # Saving the key in the file
             secrets_file.write(new_key.decode())
 
-            # Saving the encripted url in the configs_db
-            configs_db.set("mdburl", url_encripted.decode())
+            # Saving the encripted uri in the configs_db
+            configs_db.set("mdburi", uri_encripted.decode())
             configs_db.dump()
-            return "MongoDB url saved."
+            return "MongoDB URI saved."
