@@ -1,6 +1,18 @@
-from  run_carskit import Runner
+import os
+import pytest
+import pathlib as pl
+from run_carskit import Runner
 
-def test_run_engine():
-    runner = Runner('C:\\Users\\Waguinho\\Documents\\pesquisa\\CARSKit_Interface\\source\\CARSKit')
+from ..controllers.data_processing import get_app_path
+
+
+@pytest.fixture
+def java_file_path():
+    app_path = get_app_path()
+    return os.path.join(app_path, "carskit/")
+
+
+def test_run_engine(java_file_path):
+    runner = Runner(java_file_path)
     OK_CODE = 0
     assert runner.run_engine() == OK_CODE

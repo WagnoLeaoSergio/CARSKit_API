@@ -64,6 +64,7 @@ class Settings_Editor(object):
         "gcslim_mcs"
 
     """
+
     def __init__(self, file_path: str):
 
         self.__op_system = sys.platform
@@ -71,8 +72,8 @@ class Settings_Editor(object):
 
         # self.db = pickledb.load("./carskit_api/settings_data.json", True)
         self.db = pickledb.load(
-            os.path.join(pl.Path(self.file_path).parent, "settings_data.json"),
-            True)
+            os.path.join(pl.Path(self.file_path).parent, "settings_data.json"), True
+        )
 
         self.__dataset_path = "None"
 
@@ -103,11 +104,34 @@ class Settings_Editor(object):
         }
 
         self.__available_algorithms = [
-            "itemknn", "userknn", "slopeone", "pmf", "bpmf", "biasedmf", "nmf",
-            "svd++", "usersplitting", "itemsplitting", "uisplitting", "spf",
-            "dcr", "dcw", "cptf", "camf_ci", "camf_cu", "camf_cuci",
-            "cslim_ci", "cslim_cu", "cslim_cuci", "gcslim_cc", "cslim_ics",
-            "cslim_lcs", "cslim_mcs", "gcslim_ics", "gcslim_lcs", "gcslim_mcs"
+            "itemknn",
+            "userknn",
+            "slopeone",
+            "pmf",
+            "bpmf",
+            "biasedmf",
+            "nmf",
+            "svd++",
+            "usersplitting",
+            "itemsplitting",
+            "uisplitting",
+            "spf",
+            "dcr",
+            "dcw",
+            "cptf",
+            "camf_ci",
+            "camf_cu",
+            "camf_cuci",
+            "cslim_ci",
+            "cslim_cu",
+            "cslim_cuci",
+            "gcslim_cc",
+            "cslim_ics",
+            "cslim_lcs",
+            "cslim_mcs",
+            "gcslim_ics",
+            "gcslim_lcs",
+            "gcslim_mcs",
         ]
 
         if not self.db.get("parameters"):
@@ -153,12 +177,15 @@ class Settings_Editor(object):
         -------
             str: The folder name, if the operation the was successfull, or a error message if not.
         """
-        if isinstance(name, str):
-            self.__results_foldername = name
-            self.__parameters["results_foldername"] = self.__results_foldername
+        if isinstance(name, str) and not str(name).isdigit():
+            if name != "":
+                self.__results_foldername = name
+                self.__parameters["results_foldername"] = self.__results_foldername
 
-            return self.__results_foldername
-        return "ERROR! Path Invalid."
+                return self.__results_foldername
+            else:
+                return "ERROR! The name is empty."
+        return "ERROR! Name Invalid."
 
     def get_results_foldername(self) -> str:
         return self.__results_foldername
@@ -261,7 +288,7 @@ class Settings_Editor(object):
 
         if not os.path.exists(self.file_path):
             return "ERROR! Settings file's path do not exist!"
-        if self.__dataset_path == "":
+        if self.__dataset_path == "None":
             return "ERROR! No dataset selected!"
 
         try:
@@ -274,7 +301,8 @@ class Settings_Editor(object):
             settings_str = [
                 f"dataset.ratings.wins={self.__parameters['dataset_path']}\n",
                 f"dataset.ratings.lins={self.__parameters['dataset_path']}\n",
-                "dataset.social.wins=-1\n", "dataset.social.lins=-1\n",
+                "dataset.social.wins=-1\n",
+                "dataset.social.lins=-1\n",
                 "# options: -columns: (user, item, [rating, [timestamp]]) columns of rating data; -threshold: to binary ratings;\n",
                 "# --time-unit [DAYS, HOURS, MICROSECONDS, MILLISECONDS, MINUTES, NANOSECONDS, SECONDS]\n",
                 "ratings.setup=-threshold -1 -datatransformation 1 -fullstat -1\n",
@@ -308,15 +336,21 @@ class Settings_Editor(object):
                 "# neighborhood size; -1 to use as many as possible.\n",
                 f"num.neighbors={self.__parameters['num_neighboors']}\n",
                 "########################## Method-specific Settings ########################\n"
-                "AoBPR=-lambda 0.3\n", "BUCM=-gamma 0.5\n",
+                "AoBPR=-lambda 0.3\n",
+                "BUCM=-gamma 0.5\n",
                 "BHfree=-k 10 -l 10 -gamma 0.2 -sigma 0.01\n",
-                "FISM=-rho 100 -alpha 0.4\n", "Hybrid=-lambda 0.5\n",
-                "LDCC=-ku 20 -kv 19 -au 1 -av 1 -beta 1\n", "PD=-sigma 2.5\n",
-                "PRankD=-alpha 20\n", "RankALS=-sw on\n", "RSTE=-alpha 0.4\n",
+                "FISM=-rho 100 -alpha 0.4\n",
+                "Hybrid=-lambda 0.5\n",
+                "LDCC=-ku 20 -kv 19 -au 1 -av 1 -beta 1\n",
+                "PD=-sigma 2.5\n",
+                "PRankD=-alpha 20\n",
+                "RankALS=-sw on\n",
+                "RSTE=-alpha 0.4\n",
                 "DCR=-wt 0.9 -wd 0.4 -p 5 -lp 2.05 -lg 2.05\n",
                 "DCW=-wt 0.9 -wd 0.4 -p 5 -lp 2.05 -lg 2.05 -th 0.8\n",
                 "SPF=-i 0 -b 5 -th 0.9 -f 10 -t 100 -l 0.02 -r 0.001\n",
-                "SLIM=-l1 1 -l2 1 -k 1\n", "CAMF_LCS=-f 10\n",
+                "SLIM=-l1 1 -l2 1 -k 1\n",
+                "CAMF_LCS=-f 10\n",
                 "CSLIM_C=-lw1 1 -lw2 5 -lc1 1 -lc2 5 -k 3 -als 0\n",
                 "CSLIM_CI=-lw1 1 -lw2 5 -lc1 1 -lc2 1 -k 1 -als 0\n",
                 "CSLIM_CU=-lw1 1 -lw2 0 -lc1 1 -lc2 5 -k 10 -als 0\n",
@@ -328,7 +362,7 @@ class Settings_Editor(object):
                 "GCSLIM_ICS=-lw1 1 -lw2 5 -k 10 -als 0\n",
                 "GCSLIM_LCS=-lw1 1 -lw2 5 -k -1 -als 0\n",
                 "GCSLIM_MCS=-lw1 1 -lw2 5 -k -1 -als 0\n",
-                "FM=-lw 0.01 -lf 0.02\n"
+                "FM=-lw 0.01 -lf 0.02\n",
             ]
             for i in range(len(settings_str)):
                 settings_file.write(settings_str[i])
@@ -339,5 +373,5 @@ class Settings_Editor(object):
             return "ERROR! The file is not readable!"
 
     def __del__(self):
-        '''Saves the settings when the class is dealocated.'''
+        """Saves the settings when the class is dealocated."""
         self.save_settings()
