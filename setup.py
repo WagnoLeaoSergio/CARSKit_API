@@ -4,7 +4,7 @@ setup(
     # Application name
     name="carskit_api",
     # Version number
-    version="0.0.5",
+    version="0.0.6",
     description="An API for the CARSKit engine",
     # Application author details
     author="WagnoLeaoSergio",
@@ -13,25 +13,21 @@ setup(
     install_requires=["cliff", "pickleDB", "pymongo", "dnspython"],
     # Packages
     packages=find_packages(),
-    python_requires='>=3.6',
-
+    python_requires=">=3.6",
     # Details
-    #url  = ""
+    # url  = ""
     include_package_data=True,
-
     # License
     license="LICENSE.txt",
-
     # ReadMe
     long_description=open("README.md").read(),
-
     # Package console entry points
     entry_points={
         "console_scripts": ["capi = carskit_api.cli.main:main"],
         "capi": [
             "run = carskit_api.cli.run:RunEngine",
             "settings = carskit_api.cli.settings:Settings",
-            "database = carskit_api.cli.database:Database"
+            "database = carskit_api.cli.database:Database",
         ],
     },
 )
