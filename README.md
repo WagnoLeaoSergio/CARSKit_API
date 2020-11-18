@@ -59,6 +59,26 @@ $ capi settings -s "topN" --value 10
 
 And a new settings file will be generated with the new configuration.
 
+## Saving on a MongoDB database
+
+There are two things that must be done to store the results on a MongoDB server. First, a file called `.secrets.key` must be created, whose path is at the user's choice. Then it is necessary to specify the path of this file to the API using the command:
+
+```shell
+capi database --secrets-path PATH
+```
+
+to then specify the URI address for the API using the command:
+
+```shell
+capi database --uri URI
+```
+
+Now with the correct settings, we can run the engine and save the results on a MongoDB server using the command:
+
+```shell
+capi run --save-mongo
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
