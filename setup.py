@@ -10,7 +10,7 @@ setup(
     author="WagnoLeaoSergio",
     author_email="wagnoleao@gmail.com",
     # Dependencies
-    install_requires=["cliff", "pickleDB", "pymongo", "dnspython"],
+    install_requires=["cliff", "pickleDB", "pymongo", "dnspython", "cryptography"],
     # Packages
     packages=find_packages(),
     python_requires=">=3.6",
