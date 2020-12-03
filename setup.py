@@ -4,7 +4,7 @@ setup(
     # Application name
     name="carskit_api",
     # Version number
-    version="0.0.6",
+    version="0.0.7",
     description="An API for the CARSKit engine",
     # Application author details
     author="WagnoLeaoSergio",

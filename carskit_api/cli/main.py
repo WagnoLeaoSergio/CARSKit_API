@@ -20,7 +20,8 @@ class CAPI_App(App):
         app_path = pl.Path(os.path.dirname(os.path.abspath(__file__))).parent
 
         settings_editor = Settings_Editor(
-            os.path.join(app_path, "carskit/setting.conf"))
+            os.path.join(app_path, "carskit", "setting.conf")
+        )
 
         settings_editor.save_settings()
 

@@ -4,6 +4,8 @@ import pathlib as pl
 import subprocess
 import pickledb
 
+from .controllers.data_processing import get_app_path
+
 
 class Settings_Editor(object):
     """
@@ -71,8 +73,11 @@ class Settings_Editor(object):
         self.file_path = os.path.abspath(file_path)
 
         # self.db = pickledb.load("./carskit_api/settings_data.json", True)
+        # self.db = pickledb.load(
+        #     os.path.join(pl.Path(self.file_path).parent, "settings_data.json"), True
+        # )
         self.db = pickledb.load(
-            os.path.join(pl.Path(self.file_path).parent, "settings_data.json"), True
+            os.path.join(get_app_path(), "carskit", "settings_data.json"), True
         )
 
         self.__dataset_path = "None"

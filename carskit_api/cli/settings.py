@@ -3,6 +3,8 @@ import os
 import pathlib as pl
 from cliff.command import Command
 from ..editors import Settings_Editor
+from ..controllers.data_processing import get_app_path
+
 
 class Settings(Command):
     """Edit the Engine's Settings"""
@@ -13,26 +15,26 @@ class Settings(Command):
         group = parser.add_mutually_exclusive_group()
 
         group.add_argument(
-            "-s", "--set",
+            "-s",
+            "--set",
             help="set a new value for a specific configuration",
             action="store_true",
         )
         group.add_argument(
-            "-g", "--get",
+            "-g",
+            "--get",
             help="get the value of the configuration specified",
             action="store_true",
         )
 
         parser.add_argument(
-            "field",
-            help="The name of the configuration field",
-            action="store"
+            "field", help="The name of the configuration field", action="store"
         )
 
         parser.add_argument(
             "--value",
             help="The new value for the configuration field specified. When the --get flag is setted this argument is disabled.",
-            action="store"
+            action="store",
         )
 
         return parser
@@ -41,11 +43,10 @@ class Settings(Command):
         """Settings action"""
         output = "test"
 
-        conf_file_path = pl.Path(
-            os.path.dirname(os.path.abspath(__file__)))
+        # conf_file_path = pl.Path(os.path.dirname(os.path.abspath(__file__)))
+        # conf_file_path = os.path.join(conf_file_path.parent, "carskit", "setting.conf")
 
-        conf_file_path = os.path.join(
-            conf_file_path.parent, "carskit/test.conf")
+        conf_file_path = os.path.join(get_app_path(), "carskit", "setting.conf")
 
         settings_editor = Settings_Editor(conf_file_path)
 

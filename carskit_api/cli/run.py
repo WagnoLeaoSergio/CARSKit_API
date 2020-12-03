@@ -50,7 +50,7 @@ class RunEngine(Command):
         # Getting  where the app is on computer
         app_path = get_app_path()
         engine_folder_path = os.path.join(app_path, "carskit/")
-        conf_file_path = os.path.join(app_path, "carskit/setting.conf")
+        conf_file_path = os.path.join(app_path, "carskit", "setting.conf")
 
         # Instantiating  the Runner and the Settings_Editor classes
         settings_editor = Settings_Editor(conf_file_path)
