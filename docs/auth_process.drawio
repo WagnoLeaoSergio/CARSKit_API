@@ -1,0 +1,253 @@
+<mxfile host="65bd71144e" modified="2020-10-22T17:56:52.192Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.1 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" version="13.6.5" etag="KsYVzadk1fkoAWRH87aq">
+    <diagram id="i1K-QD4k-jzdlZfyC_jG" name="Page-1">
+        <mxGraphModel dx="1051" dy="594" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="90" width="20" height="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="shape=umlLifeline;participant=umlBoundary;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="290" y="90" width="50" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="save_path -&amp;gt; configs" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="3" target="6">
+                    <mxGeometry x="-0.2" y="10" width="80" relative="1" as="geometry">
+                        <mxPoint x="30" y="110" as="sourcePoint"/>
+                        <mxPoint x="80" y="200" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="110"/>
+                            <mxPoint x="80" y="135"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=11;" vertex="1" parent="3">
+                    <mxGeometry x="20" y="180" width="10" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="get_path -&amp;gt; configs" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="3">
+                    <mxGeometry x="-0.1304" y="10" width="80" relative="1" as="geometry">
+                        <mxPoint x="30" y="223" as="sourcePoint"/>
+                        <mxPoint x="30" y="238" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="223"/>
+                            <mxPoint x="80" y="238"/>
+                        </Array>
+                        <mxPoint y="-3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="save_url -&amp;gt; configs" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="3">
+                    <mxGeometry x="0.1071" y="28" width="80" relative="1" as="geometry">
+                        <mxPoint x="30" y="390" as="sourcePoint"/>
+                        <mxPoint x="30" y="402" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="390"/>
+                            <mxPoint x="80" y="402"/>
+                        </Array>
+                        <mxPoint x="20" y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=11;" vertex="1" parent="3">
+                    <mxGeometry x="20" y="80" width="10" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="test_connection(URL)" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="3">
+                    <mxGeometry x="-0.1304" y="20" width="80" relative="1" as="geometry">
+                        <mxPoint x="30" y="280" as="sourcePoint"/>
+                        <mxPoint x="30" y="295" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="280"/>
+                            <mxPoint x="80" y="295"/>
+                        </Array>
+                        <mxPoint y="-4" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="capi database --secrets-path PATH" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="1" source="2" target="6">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="110" y="190" as="sourcePoint"/>
+                        <mxPoint x="280" y="190" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="200" y="190"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="cli.database" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="275" y="60" width="80" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;div style=&quot;color: rgb(248 , 248 , 242) ; background-color: rgb(40 , 42 , 54) ; font-family: &amp;#34;droid sans mono&amp;#34; , monospace , monospace , &amp;#34;droid sans fallback&amp;#34; ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: rgb(241 , 250 , 140)&quot;&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;'.secrets.key' path saved.&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="1" source="6" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="280" y="240" as="sourcePoint"/>
+                        <mxPoint x="200" y="240" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="200" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="capi database --url URL" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="1" source="2" target="13">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="140" y="350" as="sourcePoint"/>
+                        <mxPoint x="220" y="350" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="210" y="300"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="encrypt(URL)" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="1" target="26">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="320" y="400" as="sourcePoint"/>
+                        <mxPoint x="866.8599999999999" y="401.29999999999995" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="430" y="400"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="controllers.data_processing" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="880" y="60" width="80" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;div style=&quot;background-color: rgb(40, 42, 54); font-family: &amp;quot;droid sans mono&amp;quot;, monospace, monospace, &amp;quot;droid sans fallback&amp;quot;; line-height: 19px; font-size: 11px;&quot;&gt;&lt;font color=&quot;#ffffff&quot; style=&quot;font-size: 11px;&quot;&gt;encripted URL: bytes&lt;/font&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;fontSize=11;" edge="1" parent="1" source="26">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="865" y="450" as="sourcePoint"/>
+                        <mxPoint x="320" y="450" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="740" y="450"/>
+                            <mxPoint x="600" y="450"/>
+                            <mxPoint x="460" y="450"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" value="" style="shape=umlLifeline;participant=umlBoundary;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="90" width="50" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=11;" vertex="1" parent="22">
+                    <mxGeometry x="20" y="454" width="10" height="276" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="run_engine" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="22" source="23" target="23">
+                    <mxGeometry x="-0.1667" width="80" relative="1" as="geometry">
+                        <mxPoint x="40" y="480" as="sourcePoint"/>
+                        <mxPoint x="40" y="494" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="494"/>
+                            <mxPoint x="80" y="514"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="capi run --save-mongo" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="1" target="23">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="79.5" y="564" as="sourcePoint"/>
+                        <mxPoint x="630" y="564" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="370" y="564"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="cli.run" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="475" y="60" width="80" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="shape=umlLifeline;participant=umlControl;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;size=40;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="90" width="40" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=11;" vertex="1" parent="28">
+                    <mxGeometry x="15" y="270" width="10" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="save_key -&amp;gt; .secrets.key" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="28">
+                    <mxGeometry x="-0.1129" y="20" width="80" relative="1" as="geometry">
+                        <mxPoint x="25" y="330" as="sourcePoint"/>
+                        <mxPoint x="25" y="344" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="330"/>
+                            <mxPoint x="80" y="344"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=11;" vertex="1" parent="28">
+                    <mxGeometry x="15" y="540" width="10" height="144" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="shape=umlLifeline;participant=umlControl;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="86" width="40" height="774" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=11;" vertex="1" parent="30">
+                    <mxGeometry x="15" y="484" width="10" height="226" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="get_url -&amp;gt;&amp;nbsp; configs" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="30" source="32" target="32">
+                    <mxGeometry x="-0.1667" width="80" relative="1" as="geometry">
+                        <mxPoint x="30" y="568" as="sourcePoint"/>
+                        <mxPoint x="30" y="588" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="568"/>
+                            <mxPoint x="80" y="584"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="50" value="insert()" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="30" source="32" target="32">
+                    <mxGeometry x="0.0984" y="18" width="80" relative="1" as="geometry">
+                        <mxPoint x="30" y="664" as="sourcePoint"/>
+                        <mxPoint x="30" y="676" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="664"/>
+                            <mxPoint x="80" y="676"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="31" value="controllers.mongo_connection" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=14;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="60" width="80" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="upload_output()" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="1" source="23" target="32">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="680" y="634" as="sourcePoint"/>
+                        <mxPoint x="760" y="634" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="600" y="634"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="&lt;div style=&quot;color: rgb(248 , 248 , 242) ; background-color: rgb(40 , 42 , 54) ; font-family: &amp;#34;droid sans mono&amp;#34; , monospace , monospace , &amp;#34;droid sans fallback&amp;#34; ; line-height: 19px ; font-size: 10px&quot;&gt;&lt;span style=&quot;color: #e9f284&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #f1fa8c&quot;&gt;MongoDB url saved.&lt;/span&gt;&lt;span style=&quot;color: rgb(233 , 242 , 132)&quot;&gt;&quot;&lt;/span&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="1" source="13" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="295" y="410" as="sourcePoint"/>
+                        <mxPoint x="100" y="410" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="180" y="510"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="38" value="decrypt(&lt;span style=&quot;color: rgb(255, 255, 255); font-family: &amp;quot;droid sans mono&amp;quot;, monospace, monospace, &amp;quot;droid sans fallback&amp;quot;; font-size: 11px;&quot;&gt;encripted URL&lt;/span&gt;&lt;span style=&quot;color: rgb(255, 255, 255); font-family: &amp;quot;droid sans mono&amp;quot;, monospace, monospace, &amp;quot;droid sans fallback&amp;quot;; font-size: 11px; background-color: rgb(40, 42, 54);&quot;&gt;)&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;fontSize=11;" edge="1" parent="1" source="32" target="36">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="730" y="654" as="sourcePoint"/>
+                        <mxPoint x="810" y="654" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="790" y="704"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" value="&lt;span style=&quot;color: rgb(255, 255, 255); font-family: &amp;quot;droid sans mono&amp;quot;, monospace, monospace, &amp;quot;droid sans fallback&amp;quot;; font-size: 11px; background-color: rgb(40, 42, 54);&quot;&gt;decripted URL: str&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;fontSize=11;" edge="1" parent="1" source="36" target="32">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="830" y="734" as="sourcePoint"/>
+                        <mxPoint x="750" y="734" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="780" y="730"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="51" value="True" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;fontSize=11;" edge="1" parent="1" source="32" target="23">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="650" y="910" as="sourcePoint"/>
+                        <mxPoint x="570" y="920" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="590" y="780"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="52" value="&lt;div style=&quot;background-color: rgb(40 , 42 , 54) ; font-family: &amp;#34;droid sans mono&amp;#34; , monospace , monospace , &amp;#34;droid sans fallback&amp;#34; ; line-height: 19px ; font-size: 7px&quot;&gt;&lt;span style=&quot;color: rgb(241 , 250 , 140)&quot;&gt;&quot;Documents '&lt;/span&gt;&lt;font color=&quot;#bd93f9&quot; style=&quot;font-size: 7px&quot;&gt;execution@date'&lt;/font&gt;&lt;span style=&quot;color: rgb(241 , 250 , 140)&quot;&gt;&amp;nbsp;and &lt;/span&gt;&lt;font color=&quot;#bd93f9&quot; style=&quot;font-size: 7px&quot;&gt;'recomendations@data'&lt;/font&gt;&lt;span style=&quot;color: rgb(241 , 250 , 140)&quot;&gt;&amp;nbsp;saved on mongo.&quot;&lt;/span&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="1" source="23" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="440" y="800" as="sourcePoint"/>
+                        <mxPoint x="360" y="800" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="290" y="800"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
